@@ -66,11 +66,11 @@ class Sleep {
     });
     return usersSleepPastWeek;
   }
+  
   findLongestSleepers(startDate) {
     let dailyUsers = this.sleepData.filter((element) => element.date = startDate);
     let longestSleeper = dailyUsers.sort((a, b) => b.hoursSlept - a.hoursSlept);
     return longestSleeper.filter((element) => longestSleeper[0].hoursSlept === element.hoursSlept)
-
   }
 }
 

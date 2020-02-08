@@ -132,6 +132,10 @@ describe('Activity', function() {
   });
 
   it('should show the users step goals that are exceeded', function() {
-    expect(activity.getExceededStepGoal(user)).to.equal(["2019/06/16"]);
+    expect(activity.getExceededStepGoal(user)).to.deep.equal(["2019/06/16"]);
+  });
+
+  it('should show your highest climbing record', function() {
+    expect(activity.findHighestClimbingRecord(1)).to.equal(78);
   });
 });

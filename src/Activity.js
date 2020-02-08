@@ -58,6 +58,7 @@ class Activity {
     return daysThatExceededStepGoal;
   }
 
+
 }
 
 if (typeof module !== 'undefined') {
