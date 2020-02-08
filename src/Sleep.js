@@ -25,6 +25,20 @@ class Sleep {
     return filteredSleepQuality.find(day => day.date === date).sleepQuality;
   }
 
+  getDailySleepDays(userID,startDate){
+    let startDateParsed = new Date(startDate);
+    let endDateParsed = new Date(startDate);
+    endDateParsed.setDate(startDateParsed.getDate() - 7);
+    let userSleepData = this.sleepData.filter(userEntry => userEntry.userID === userID);
+    let userSleepDaysData = userSleepData.filter(function(sleedDayData) {
+      let day = new Date(sleedDayData.date);
+      if (day < startDateParsed && day >= endDateParsed) {
+        return true;
+      }
+    });
+    return userSleepDaysData.map(day => day = day.date);
+  }
+
   getPrevDaysSleepHrs(userID, startDate) {
     let userSleepDaysData = this.getPreviousDaysData(userID, startDate);
     return userSleepDaysData.map(dailyUserSleep => dailyUserSleep.hoursSlept);
@@ -66,7 +80,7 @@ class Sleep {
     });
     return usersSleepPastWeek;
   }
-  
+
   findLongestSleepers(startDate) {
     let dailyUsers = this.sleepData.filter((element) => element.date = startDate);
     let longestSleeper = dailyUsers.sort((a, b) => b.hoursSlept - a.hoursSlept);
