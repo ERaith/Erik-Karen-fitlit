@@ -130,4 +130,8 @@ describe('Activity', function() {
       expect(activity.checkReachedStepGoal(user, "2019/09/16")).to.equal(false);
     });
   });
+
+  it('should show the users step goals that are exceeded', function() {
+    expect(activity.getExceededStepGoal(user)).to.equal(["2019/06/16"]);
+  });
 });
