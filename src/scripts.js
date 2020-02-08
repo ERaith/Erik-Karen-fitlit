@@ -88,32 +88,33 @@ function activeLink(event) {
 function displayLastWeekSleep() {
   var ctx = document.getElementById('sleepPastWeek').getContext('2d');
   var sleepDays = sleep.getPrevDaysSleepHrs(user.id,date);
-  console.log(sleepDays);
-  let sleepDayLables = sleepDays.map(day => day = day.date);
+  var sleepQualtyDays = sleep.getPrevDaysSleepQuality(user.id,date);
+  console.log(sleepDays)
+  let sleepDayLables = sleep.getDailySleepDays(user.id,date);
   console.log(sleepDayLables)
   var myChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'horizontalBar',
     data: {
       labels: sleepDayLables,
       datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
+        label: 'Hours Of Sleep',
+        data: sleepDays,
+        xAxisID:'sleep-y-axis',
+        backgroundColor:
           'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
+        borderColor:
           'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
-        ],
+        borderWidth: 1
+      },{
+        label: 'Quality of Sleep',
+        data: sleepQualtyDays,
+        xAxisID:'quality-y-axis',
+        backgroundColor:
+          'rgba(255, 206, 86, 0.2)'
+        ,
+        borderColor:
+          'rgba(255, 206, 86, 1)'
+        ,
         borderWidth: 1
       }]
     },
@@ -123,12 +124,46 @@ function displayLastWeekSleep() {
           ticks: {
             beginAtZero: true
           }
+        }],
+        xAxes:[{
+          ticks:{
+            fontColor:'rgba(54, 162, 235, 1)'
+          },
+          id: 'sleep-y-axis',
+          type : 'linear',
+          position:'right'
+        },
+        {
+          ticks:{
+            fontColor:'rgba(255, 206, 86, 1)'
+          },
+          id: 'quality-y-axis',
+          type : 'linear',
+          position:'right'
         }]
       }
     }
   });
 }
 
+
+//Temp Colors
+// backgroundColor: [
+//   'rgba(255, 99, 132, 0.2)',
+//   'rgba(54, 162, 235, 0.2)',
+//   'rgba(255, 206, 86, 0.2)',
+//   'rgba(75, 192, 192, 0.2)',
+//   'rgba(153, 102, 255, 0.2)',
+//   'rgba(255, 159, 64, 0.2)'
+// ]
+// borderColor: [
+//   'rgba(255, 99, 132, 1)',
+//   'rgba(54, 162, 235, 1)',
+//   'rgba(255, 206, 86, 1)',
+//   'rgba(75, 192, 192, 1)',
+//   'rgba(153, 102, 255, 1)',
+//   'rgba(255, 159, 64, 1)'
+// ]
 
 // End Chart Info
 
