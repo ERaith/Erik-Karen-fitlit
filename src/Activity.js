@@ -46,6 +46,26 @@ class Activity {
         return true
       }
   }
+
+  getExceededStepGoal(userData) {
+    let currentUser = this.activityData.filter(data => data.userID === userData.id);
+    let daysThatExceededStepGoal = currentUser.reduce((acc, activity) => {
+      if (userData.dailyStepGoal <= activity.numSteps) {
+        acc.push(activity.date);
+      }
+      return acc;
+    }, [])
+    return daysThatExceededStepGoal;
+  }
+
+  findHighestClimbingRecord(userID) {
+    let currentUser = this.activityData.filter(data => data.userID === userID);
+    let climbingRecord = currentUser.sort((a, b) => {
+      console.log(currentUser)
+      return b.flightsOfStairs - a.flightsOfStairs;
+    })
+    return climbingRecord[0].flightsOfStairs;
+  }
 }
 
 if (typeof module !== 'undefined') {
