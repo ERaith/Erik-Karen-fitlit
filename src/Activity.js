@@ -46,6 +46,18 @@ class Activity {
         return true
       }
   }
+
+  getExceededStepGoal(userData) {
+    let currentUser = this.activityData.filter(data => data.userID === userData.id);
+    let daysThatExceededStepGoal = currentUser.reduce((acc, activity) => {
+      if (userData.dailyStepGoal <= activity.numSteps) {
+        acc.push(activity.date);
+      }
+      return acc;
+    }, [])
+    return daysThatExceededStepGoal;
+  }
+
 }
 
 if (typeof module !== 'undefined') {
