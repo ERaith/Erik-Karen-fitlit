@@ -58,7 +58,14 @@ class Activity {
     return daysThatExceededStepGoal;
   }
 
-
+  findHighestClimbingRecord(userID) {
+    let currentUser = this.activityData.filter(data => data.userID === userID);
+    let climbingRecord = currentUser.sort((a, b) => {
+      console.log(currentUser)
+      return b.flightsOfStairs - a.flightsOfStairs;
+    })
+    return climbingRecord[0].flightsOfStairs;
+  }
 }
 
 if (typeof module !== 'undefined') {
