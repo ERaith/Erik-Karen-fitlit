@@ -7,7 +7,7 @@ class Activity {
     let currentUser = this.activityData.filter(data => data.userID === userID);
     let distance = currentUser.find(stride => stride.date === date).numSteps * strideLength;
     return Number((distance / 5280).toFixed(2));
- }
+  }
 
   getMinutesActive(userID, date) {
     let currentUser = this.activityData.filter(data => data.userID === userID);
@@ -40,11 +40,11 @@ class Activity {
   checkReachedStepGoal(userData, date) {
     let currentUser = this.activityData.filter(data => data.userID === userData.id);
     let steps = currentUser.find(step => step.date === date)
-      if(userData.dailyStepGoal > steps.numSteps) {
-        return false
-      } else {
-        return true
-      }
+    if (userData.dailyStepGoal > steps.numSteps) {
+      return false
+    } else {
+      return true
+    }
   }
 
   getExceededStepGoal(userData) {
@@ -65,25 +65,40 @@ class Activity {
       return b.flightsOfStairs - a.flightsOfStairs;
     })
     return climbingRecord[0].flightsOfStairs;
-  calculateUsersAverageStairs(date){
+  }
+  calculateUsersAverageStairs(date) {
     let dailyActivity = this.activityData.filter(data => data.date === date);
-    return dailyActivity.reduce((acc,user) => {
+    return dailyActivity.reduce((acc, user) => {
       return acc += user.flightsOfStairs;
-    },0) / dailyActivity.length;
+    }, 0) / dailyActivity.length;
   }
 
-  calculateUsersAverageSteps(date){
+  calculateUsersAverageSteps(date) {
     let dailyActivity = this.activityData.filter(data => data.date === date);
-    return dailyActivity.reduce((acc,user) => {
+    return dailyActivity.reduce((acc, user) => {
       return acc += user.numSteps;
-    },0) / dailyActivity.length;
+    }, 0) / dailyActivity.length;
   }
 
-  calculateUsersAverageActivityTime(date){
+  calculateUsersAverageActivityTime(date) {
     let dailyActivity = this.activityData.filter(data => data.date === date);
-    return dailyActivity.reduce((acc,user) => {
+    return dailyActivity.reduce((acc, user) => {
       return acc += user.minutesActive;
-    },0) / dailyActivity.length;
+    }, 0) / dailyActivity.length;
+  }
+
+  getPreviousDates(userID,startDate){
+    let startDateParsed = new Date(startDate);
+    let endDateParsed = new Date(startDate);
+    endDateParsed.setDate(startDateParsed.getDate() - 7);
+    let userActivityData = this.activityData.filter(userEntry => userEntry.userID === userID);
+    let userPastDates = userActivityData.filter(function(activeDay) {
+      let day = new Date(activeDay.date);
+      if (day < startDateParsed && day >= endDateParsed) {
+        return true;
+      }
+    });
+    return userPastDates.map(day => day = day.date);
   }
 }
 
