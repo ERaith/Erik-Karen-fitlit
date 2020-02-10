@@ -13,6 +13,7 @@ let userRepo;
 let curUser;
 let user;
 let hydration;
+let activity;
 let date = "2019/06/22";
 
 
@@ -23,6 +24,12 @@ function windowLoadHandler() {
   displayAverageSteps();
   displayOuncesDrankToday();
   displayLastWeekSleep();
+  let activityData = activity.getPrevDaysActive(user.id, date);
+  let activityLabels = activity.getPreviousDates(user.id, date);
+  displayLastWeekActivity(activityData,activityLabels,'Min Active','activityMetrics');
+  let hydrationData = hydration.getPrevDaysHydration(user.id, date);
+  let hydrationLabels = hydration.getPreviousDates(user.id, date);
+  displayLastWeekActivity(hydrationData,hydrationLabels,'OZ Drank','hydationConsumed');
 }
 
 function instatiateUser() {
@@ -31,6 +38,7 @@ function instatiateUser() {
   user = new User(userRepo.findUserByID(id));
   hydration = new Hydration(hydrationData);
   sleep = new Sleep(sleepData);
+  activity = new Activity(activityData);
 }
 
 function displayUserInfo() {
@@ -85,13 +93,58 @@ function activeLink(event) {
 }
 
 // Charts
+function displayLastWeekActivity(data,labels,label,chartType) {
+  var ctx = document.getElementById(chartType).getContext('2d');
+  var myLineChart = new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: labels,
+				datasets: [{
+					label: label,
+					backgroundColor: '#355C7D',
+					borderColor: '#AEBDCB',
+					data: data,
+					fill: true,
+				}]
+			},
+			options: {
+				responsive: true,
+				title: {
+					display: false,
+				},
+				tooltips: {
+					mode: 'index',
+					intersect: false,
+				},
+				hover: {
+					mode: 'nearest',
+					intersect: true
+				},
+				scales: {
+					xAxes: [{
+						display: true,
+						scaleLabel: {
+							display: false,
+							labelString: 'Date'
+						}
+					}],
+					yAxes: [{
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'Minutes Active'
+						}
+					}]
+				}
+			}
+		});
+}
+
 function displayLastWeekSleep() {
   var ctx = document.getElementById('sleepPastWeek').getContext('2d');
-  var sleepDays = sleep.getPrevDaysSleepHrs(user.id,date);
-  var sleepQualtyDays = sleep.getPrevDaysSleepQuality(user.id,date);
-  console.log(sleepDays)
-  let sleepDayLables = sleep.getDailySleepDays(user.id,date);
-  console.log(sleepDayLables)
+  var sleepDays = sleep.getPrevDaysSleepHrs(user.id, date);
+  var sleepQualtyDays = sleep.getPrevDaysSleepQuality(user.id, date);
+  let sleepDayLables = sleep.getDailySleepDays(user.id, date);
   var myChart = new Chart(ctx, {
     type: 'horizontalBar',
     data: {
@@ -99,22 +152,16 @@ function displayLastWeekSleep() {
       datasets: [{
         label: 'Hours Of Sleep',
         data: sleepDays,
-        xAxisID:'sleep-y-axis',
-        backgroundColor:
-          'rgba(54, 162, 235, 0.2)',
-        borderColor:
-          'rgba(54, 162, 235, 1)',
+        xAxisID: 'sleep-y-axis',
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(54, 162, 235, 1)',
         borderWidth: 1
-      },{
+      }, {
         label: 'Quality of Sleep',
         data: sleepQualtyDays,
-        xAxisID:'quality-y-axis',
-        backgroundColor:
-          'rgba(255, 206, 86, 0.2)'
-        ,
-        borderColor:
-          'rgba(255, 206, 86, 1)'
-        ,
+        xAxisID: 'quality-y-axis',
+        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+        borderColor: 'rgba(255, 206, 86, 1)',
         borderWidth: 1
       }]
     },
@@ -125,27 +172,27 @@ function displayLastWeekSleep() {
             beginAtZero: true
           }
         }],
-        xAxes:[{
-          ticks:{
-            fontColor:'rgba(54, 162, 235, 1)'
+        xAxes: [{
+            ticks: {
+              fontColor: 'rgba(54, 162, 235, 1)'
+            },
+            id: 'sleep-y-axis',
+            type: 'linear',
+            position: 'right'
           },
-          id: 'sleep-y-axis',
-          type : 'linear',
-          position:'right'
-        },
-        {
-          ticks:{
-            fontColor:'rgba(255, 206, 86, 1)'
-          },
-          id: 'quality-y-axis',
-          type : 'linear',
-          position:'right'
-        }]
+          {
+            ticks: {
+              fontColor: 'rgba(255, 206, 86, 1)'
+            },
+            id: 'quality-y-axis',
+            type: 'linear',
+            position: 'right'
+          }
+        ]
       }
     }
   });
 }
-
 
 //Temp Colors
 // backgroundColor: [

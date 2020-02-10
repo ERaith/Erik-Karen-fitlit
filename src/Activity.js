@@ -86,6 +86,20 @@ class Activity {
       return acc += user.minutesActive;
     }, 0) / dailyActivity.length;
   }
+
+  getPreviousDates(userID,startDate){
+    let startDateParsed = new Date(startDate);
+    let endDateParsed = new Date(startDate);
+    endDateParsed.setDate(startDateParsed.getDate() - 7);
+    let userActivityData = this.activityData.filter(userEntry => userEntry.userID === userID);
+    let userPastDates = userActivityData.filter(function(activeDay) {
+      let day = new Date(activeDay.date);
+      if (day < startDateParsed && day >= endDateParsed) {
+        return true;
+      }
+    });
+    return userPastDates.map(day => day = day.date);
+  }
 }
 
 if (typeof module !== 'undefined') {

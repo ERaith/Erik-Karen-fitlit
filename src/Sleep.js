@@ -70,7 +70,6 @@ class Sleep {
 
   findAllGreatSleepers(startDate) {
     let uniqueUsers = [... new Set(this.sleepData.map(item => item.userID))];
-    console.log(uniqueUsers);
     let usersSleepPastWeek = uniqueUsers.reduce((acc,userID)=>{
       let sleepData = this.getPrevDaysSleepHrs(userID,startDate);
       if(sleepData.reduce((sum,element)=>{
@@ -80,7 +79,6 @@ class Sleep {
       }
       return acc;
     },[])
-    console.log(usersSleepPastWeek)
     return usersSleepPastWeek;
   }
 
