@@ -77,7 +77,28 @@ describe('Activity', function() {
     {
       "userID": 2,
       "date":"2019/06/16",
-      "numSteps": 10000,
+      "numSteps": 3,
+      "minutesActive": 130,
+      "flightsOfStairs": 23
+    },
+    {
+      "userID": 2,
+      "date":"2019/06/17",
+      "numSteps": 4,
+      "minutesActive": 130,
+      "flightsOfStairs": 23
+    },
+    {
+      "userID": 2,
+      "date":"2019/06/18",
+      "numSteps": 5,
+      "minutesActive": 130,
+      "flightsOfStairs": 23
+    },
+    {
+      "userID": 2,
+      "date":"2019/06/19",
+      "numSteps": 4,
       "minutesActive": 130,
       "flightsOfStairs": 23
     },
@@ -159,7 +180,7 @@ describe('Activity', function() {
       expect(activity.calculateUsersAverageStairs("2019/06/16")).to.equal(23);
     });
     it('should calculate Average steps taken', function() {
-      expect(activity.calculateUsersAverageSteps("2019/06/16")).to.equal(10000);
+      expect(activity.calculateUsersAverageSteps("2019/06/16")).to.equal(6667.666666666667);
     });
     it('should calculate Average Activity Time', function() {
       expect(activity.calculateUsersAverageActivityTime("2019/06/16")).to.equal(130);
@@ -172,5 +193,9 @@ describe('Activity', function() {
   it('should show your highest climbing record', function() {
     expect(activity.findHighestClimbingRecord(1)).to.equal(78);
   });
+  it('should show your previous streaks', function() {
+    expect(activity.findStreaks(2)).to.deep.equal([{endDate: "2019/06/19",streakRun: 3}]);
+  });
+
     });
 });
