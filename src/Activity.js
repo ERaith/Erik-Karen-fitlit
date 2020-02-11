@@ -13,6 +13,10 @@ class Activity {
     let currentUser = this.activityData.filter(data => data.userID === userID);
     return currentUser.find(minute => minute.date === date).minutesActive;
   }
+  getSteps(userID, date) {
+    let currentUser = this.activityData.filter(data => data.userID === userID);
+    return currentUser.find(minute => minute.date === date).numSteps;
+  }
 
   getPrevDaysActive(userID, startDate) {
     let startDateParsed = new Date(startDate);

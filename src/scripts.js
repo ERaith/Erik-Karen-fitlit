@@ -2,7 +2,7 @@ let linksParent = document.querySelector('.link-container');
 let userScore = document.getElementById('userScore');
 let numOfSteps = document.getElementById('numOfSteps');
 let minutesActive = document.getElementById('minutesActive');
-let flightsOfStairs = document.getElementById('flightsOfStairs');
+let milesWalked = document.getElementById('milesWalked');
 let numOunces = document.getElementById('numOunces');
 let hoursSlept = document.getElementById('hoursSlept');
 let sleepQuality = document.getElementById('sleepQuality');
@@ -22,6 +22,7 @@ function windowLoadHandler() {
   displayUserInfo();
   displayFriends();
   displayAverageSteps();
+  displayActivity();
   displayOuncesDrankToday();
   displayLastWeekSleep();
   let activityData = activity.getPrevDaysActive(user.id, date);
@@ -30,6 +31,12 @@ function windowLoadHandler() {
   let hydrationData = hydration.getPrevDaysHydration(user.id, date);
   let hydrationLabels = hydration.getPreviousDates(user.id, date);
   displayLastWeekActivity(hydrationData,hydrationLabels,'OZ Drank','hydationConsumed');
+}
+
+function displayActivity(){
+  numOfSteps.innerText=activity.getSteps(user.id,date);
+  minutesActive.innerText=activity.getMinutesActive(user.id,date);
+  milesWalked.innerText=activity.calculateMilesToday(user.id,date,user.strideLength);
 }
 
 function instatiateUser() {
