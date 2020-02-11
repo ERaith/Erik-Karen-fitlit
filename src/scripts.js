@@ -9,6 +9,7 @@ let sleepQuality = document.getElementById('sleepQuality');
 let userInfo = document.querySelectorAll('.userInfo');
 let friendsContainerEl = document.querySelector('.friends-container');
 let averageStepContainer = document.querySelector('.averageStepContainer');
+let sleepContainer = document.querySelector('.sleep-container')
 let userRepo;
 let curUser;
 let user;
@@ -23,6 +24,7 @@ function windowLoadHandler() {
   displayFriends();
   displayAverageSteps();
   displayLastWeekSleep();
+  displayTodaysSleep();
   let activityData = activity.getPrevDaysActive(user.id, date);
   let activityLabels = activity.getPreviousDates(user.id, date);
   displayLastWeekActivity(activityData,activityLabels,'Min Active','activityMetrics');
@@ -73,14 +75,18 @@ function displayAverageSteps() {
   averageStepContainer.insertAdjacentHTML('beforeend', averageStepsHTML);
 }
 
-
-
-function activeLink(event) {
-  if (event.target.classList.contains('navLink')) {
-    document.querySelector('.active').classList.remove('active');
-    event.target.classList.add('active');
-    swapContent(event);
-  }
+function displayTodaysSleep() {
+  let todaysSleepHTML = `
+  <article class="card sleep">
+  <h3>Today:</h3>
+  <p>Hours of Sleep: <span id='hoursSlept'>${sleep.getDailySleep(user.id, date)}</span></p>
+  <p>Quality of Sleep: <span id='sleepQuality'>${sleep.getDailySleepQuality(user.id, date)}</span></p>
+  <h3>Average:</h3>
+  <p>Hours of Sleep: <span id='averageHoursSlept'>${sleep.calcAvgSleepHrTotalDays(user.id)}</span></p>
+  <p>Quality of Sleep: <span id='averageSleepQuality'>${sleep.calcAvgSleepQualityTotalDays(user.id)}</span></p>
+</article>
+  `
+  sleepContainer.insertAdjacentHTML('beforeend', todaysSleepHTML);
 }
 
 // Charts
@@ -242,6 +248,4 @@ function makeDonutChart() {
 
 // End Chart Info
 
-
-linksParent.addEventListener('click', activeLink);
 window.onload = windowLoadHandler();

@@ -22,48 +22,45 @@
 
     </div>
   </header>
-  <nav>
-    <ul class="link-container">
-      <li class="navLink active">Sleep</li>
-      <li class="navLink">Activity</li>
-      <li class="navLink">Hydration</li>
-    </ul>
-  </nav>
   <main>
     <section>
-      <article class="card activity">
-        <h4>Activity</h4>
-        <p>Number of Steps: <span id='numOfSteps'>2634</span></p>
-        <p>Active Minutes: <span id='minutesActive'>2634</span></p>
-        <p># of flights of Stairs: <span id='flightsOfStairs'>2634</span></p>
-      </article>
-      <article class="card activity">
-        <h4>Minutes Active This Week</h4>
-        <canvas id = "activityMetrics" width ="400" height = "400"></canvas>
-      </article>
-      <article class="card hydration">
-        <h4>Hydration This Week</h4>
-        <canvas id = "hydrationConsumedWeek" width ="400" height = "400"></canvas>
-      </article>
-      <article class="card hydration">
-        <h4>Hydration</h4>
-        <canvas id = "hydrationConsumed" width ="400" height = "400"></canvas>
-        <span id='numOunces'></span>
-      </article>
-      <article class="card sleep">
-        <h4>Sleep</h4>
-        <h5>Day</h5>
-        <p>Hours of Sleep: <span id='hoursSlept'>2634</span></p>
-        <p>Quality of Sleep: <span id='sleepQuality'>2634</span></p>
-      </article>
-      <article class="card sleep">
-        <h4>Sleep</h4>
-        <h5>Week</h5>
-        <canvas id = "sleepPastWeek" width ="400" height = "400"></canvas>
-      </article>
+      <div class="sleep-container">
+        <h3>Sleep</h3>
+       
+        <article class="card sleep">
+          <h3>Sleep</h3>
+          <h5>Week</h5>
+          <canvas id = "sleepPastWeek" width ="400" height = "400"></canvas>
+        </article>
+      </div>
+      <div>
+        <h3>Hydration</h3>
+        <article class="card hydration">
+          <h4>Hydration This Week</h4>
+          <canvas id = "hydrationConsumedWeek" width ="400" height = "400"></canvas>
+        </article>
+        <article class="card hydration">
+          <h4>Hydration</h4>
+          <canvas id = "hydrationConsumed" width ="400" height = "400"></canvas>
+          <span id='numOunces'></span>
+        </article>
+      </div>
+      <div>
+        <h3>Activity</h3>
+        <article class="card activity">
+          <h4>Activity</h4>
+          <p>Number of Steps: <span id='numOfSteps'>2634</span></p>
+          <p>Active Minutes: <span id='minutesActive'>2634</span></p>
+          <p># of flights of Stairs: <span id='flightsOfStairs'>2634</span></p>
+        </article>
+        <article class="card activity">
+          <h4>Minutes Active This Week</h4>
+          <canvas id = "activityMetrics" width ="400" height = "400"></canvas>
+        </article>
+      </div>
     </section>
-
     <aside class = 'friends-container'>
+      <h3>Friends</h3>
     </aside>
 
   </main>
