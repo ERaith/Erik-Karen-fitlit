@@ -24,14 +24,19 @@ function windowLoadHandler() {
   displayFriends();
   displayAverageSteps();
   displayActivity();
+  displaySleep();
+  displayHydration();
+}
+
+function displaySleep(){
   displayLastWeekSleep();
   displayTodaysSleep();
-  let activityData = activity.getPrevDaysActive(user.id, date);
-  let activityLabels = activity.getPreviousDates(user.id, date);
-  displayLastWeekActivity(activityData,activityLabels,'Min Active','activityMetrics');
+}
+
+function displayHydration(){
   let hydrationData = hydration.getPrevDaysHydration(user.id, date);
   let hydrationLabels = hydration.getPreviousDates(user.id, date);
-  displayLastWeekActivity(hydrationData,hydrationLabels,'OZ Drank','hydrationConsumedWeek');
+  displayLineChart(hydrationData,hydrationLabels,'OZ Drank','hydrationConsumedWeek','#355C7D');
   makeDonutChart();
 }
 
@@ -39,6 +44,13 @@ function displayActivity(){
   numOfSteps.innerText=activity.getSteps(user.id,date);
   minutesActive.innerText=activity.getMinutesActive(user.id,date);
   milesWalked.innerText=activity.calculateMilesToday(user.id,date,user.strideLength);
+  let minutesActiveDays = activity.getPrevDaysActive(user.id, date);
+  let minutesActiveDaysLabels = activity.getPreviousDates(user.id, date);
+  displayLineChart(minutesActiveDays,minutesActiveDaysLabels,'Minutes Active','minActiveChart','#36C878');
+  let userStepsDays = activity.getPrevDaysStairs(user.id, date);
+  displayLineChart(userStepsDays,minutesActiveDaysLabels,'Steps Taken','stepsChart','#C8363E');
+  let stairsDays = activity.getPrevDaysSteps(user.id, date);
+  displayLineChart(stairsDays,minutesActiveDaysLabels,'Stairs Climbed','stairsChart','#C036C8');
 }
 
 function instatiateUser() {
@@ -97,7 +109,10 @@ function displayTodaysSleep() {
 }
 
 // Charts
-function displayLastWeekActivity(data,labels,label,chartType) {
+
+Chart.defaults.global.defaultFontColor = 'white';
+
+function displayLineChart(data,labels,label,chartType,color) {
   var ctx = document.getElementById(chartType).getContext('2d');
   var myLineChart = new Chart(ctx, {
 			type: 'line',
@@ -105,17 +120,17 @@ function displayLastWeekActivity(data,labels,label,chartType) {
 				labels: labels,
 				datasets: [{
 					label: label,
-					backgroundColor: '#355C7D',
+					backgroundColor: color,
 					borderColor: '#AEBDCB',
 					data: data,
 					fill: true,
 				}]
 			},
 			options: {
+        legend:{
+          display:false
+        },
 				responsive: true,
-				title: {
-					display: false,
-				},
 				tooltips: {
 					mode: 'index',
 					intersect: false,
@@ -136,7 +151,7 @@ function displayLastWeekActivity(data,labels,label,chartType) {
 						display: true,
 						scaleLabel: {
 							display: true,
-							labelString: 'Minutes Active'
+							labelString: label
 						}
 					}]
 				}
@@ -159,6 +174,7 @@ function displayLastWeekSleep() {
         xAxisID: 'sleep-y-axis',
         backgroundColor: 'rgba(54, 162, 235, 0.2)',
         borderColor: 'rgba(54, 162, 235, 1)',
+
         borderWidth: 1
       }, {
         label: 'Quality of Sleep',
@@ -205,10 +221,10 @@ function makeDonutChart() {
     data: {
       datasets: [{
         data: [
-          ounces, 100- ounces
+          ounces, 101- ounces
         ],
         backgroundColor: [
-          'blue',
+          '#355C7D',
           'grey'
         ],
         label: 'Dataset 1'
@@ -219,13 +235,14 @@ function makeDonutChart() {
       ]
     },
     options: {
-      responsive: true,
-      legend: {
-        position: 'top',
+      legend:{
+        display:false
       },
+      responsive: true,
       title: {
         display: true,
-        text: 'Chart.js Doughnut Chart'
+        text: `${ounces} Oz. Drunk Today`,
+        position: 'bottom'
       },
       animation: {
         animateScale: true,
@@ -235,24 +252,5 @@ function makeDonutChart() {
   });
 }
 
-//Temp Colors
-// backgroundColor: [
-//   'rgba(255, 99, 132, 0.2)',
-//   'rgba(54, 162, 235, 0.2)',
-//   'rgba(255, 206, 86, 0.2)',
-//   'rgba(75, 192, 192, 0.2)',
-//   'rgba(153, 102, 255, 0.2)',
-//   'rgba(255, 159, 64, 0.2)'
-// ]
-// borderColor: [
-//   'rgba(255, 99, 132, 1)',
-//   'rgba(54, 162, 235, 1)',
-//   'rgba(255, 206, 86, 1)',
-//   'rgba(75, 192, 192, 1)',
-//   'rgba(153, 102, 255, 1)',
-//   'rgba(255, 159, 64, 1)'
-// ]
-
-// End Chart Info
 
 window.onload = windowLoadHandler();
