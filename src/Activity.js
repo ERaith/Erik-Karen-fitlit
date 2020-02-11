@@ -29,13 +29,47 @@ class Activity {
         return true;
       }
     });
-    // return userActiveDaysData.map(data => data.minutesActive);
-    let weeklyMin = userActiveDaysData.map(data=>data.minutesActive);
-    let weeklySteps = userActiveDaysData.map(data=>data.numSteps);
-    let weeklyFlights = userActiveDaysData.map(data=>data.flightsOfStairs);
-    return [weeklyMin,weeklySteps,weeklyFlights];
+    return userActiveDaysData.map(data => data.minutesActive);
   }
-
+  getPrevDaysActive(userID, startDate) {
+    let startDateParsed = new Date(startDate);
+    let endDateParsed = new Date(startDate);
+    endDateParsed.setDate(startDateParsed.getDate() - 7);
+    let userActiveData = this.activityData.filter(userEntry => userEntry.userID === userID);
+    let userActiveDaysData = userActiveData.filter((activeDayData) => {
+      let day = new Date(activeDayData.date);
+      if (day <= startDateParsed && day >= endDateParsed) {
+        return true;
+      }
+    });
+    return userActiveDaysData.map(data => data.minutesActive);
+  }
+  getPrevDaysStairs(userID, startDate) {
+    let startDateParsed = new Date(startDate);
+    let endDateParsed = new Date(startDate);
+    endDateParsed.setDate(startDateParsed.getDate() - 7);
+    let userActiveData = this.activityData.filter(userEntry => userEntry.userID === userID);
+    let userActiveDaysData = userActiveData.filter((activeDayData) => {
+      let day = new Date(activeDayData.date);
+      if (day <= startDateParsed && day >= endDateParsed) {
+        return true;
+      }
+    });
+    return userActiveDaysData.map(data => data.flightsOfStairs);
+  }
+  getPrevDaysSteps(userID, startDate) {
+    let startDateParsed = new Date(startDate);
+    let endDateParsed = new Date(startDate);
+    endDateParsed.setDate(startDateParsed.getDate() - 7);
+    let userActiveData = this.activityData.filter(userEntry => userEntry.userID === userID);
+    let userActiveDaysData = userActiveData.filter((activeDayData) => {
+      let day = new Date(activeDayData.date);
+      if (day <= startDateParsed && day >= endDateParsed) {
+        return true;
+      }
+    });
+    return userActiveDaysData.map(data => data.numSteps);
+  }
   calculateActiveAverage(userID, startDate) {
     let prevMinutesActive = this.getPrevDaysActive(userID, startDate);
     let totalActiveMinutes = prevMinutesActive.reduce((total, curVal) => {
