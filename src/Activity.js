@@ -29,7 +29,11 @@ class Activity {
         return true;
       }
     });
-    return userActiveDaysData.map(data => data.minutesActive);
+    // return userActiveDaysData.map(data => data.minutesActive);
+    let weeklyMin = userActiveDaysData.map(data=>data.minutesActive);
+    let weeklySteps = userActiveDaysData.map(data=>data.numSteps);
+    let weeklyFlights = userActiveDaysData.map(data=>data.flightsOfStairs);
+    return [weeklyMin,weeklySteps,weeklyFlights];
   }
 
   calculateActiveAverage(userID, startDate) {
