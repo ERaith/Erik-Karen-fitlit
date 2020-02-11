@@ -78,10 +78,10 @@ function displayAverageSteps() {
 function displayTodaysSleep() {
   let todaysSleepHTML = `
   <article class="card sleep">
-  <h3>Today:</h3>
+  <h3>Today's Sleep:</h3>
   <p>Hours of Sleep: <span id='hoursSlept'>${sleep.getDailySleep(user.id, date)}</span></p>
   <p>Quality of Sleep: <span id='sleepQuality'>${sleep.getDailySleepQuality(user.id, date)}</span></p>
-  <h3>Average:</h3>
+  <h3>Average Sleep:</h3>
   <p>Hours of Sleep: <span id='averageHoursSlept'>${sleep.calcAvgSleepHrTotalDays(user.id)}</span></p>
   <p>Quality of Sleep: <span id='averageSleepQuality'>${sleep.calcAvgSleepQualityTotalDays(user.id)}</span></p>
 </article>
