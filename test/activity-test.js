@@ -145,7 +145,6 @@ describe('Activity', function() {
     });
   });
 
-<<<<<<< HEAD
   describe('calculate Averages per day',function(){
     it('should calculate Average Stairs climbed', function() {
       expect(activity.calculateUsersAverageStairs("2019/06/16")).to.equal(23);
@@ -157,8 +156,6 @@ describe('Activity', function() {
       expect(activity.calculateUsersAverageActivityTime("2019/06/16")).to.equal(130);
     });
   });
-});
-=======
   it('should show the users step goals that are exceeded', function() {
     expect(activity.getExceededStepGoal(user)).to.deep.equal(["2019/06/16"]);
   });
@@ -167,4 +164,5 @@ describe('Activity', function() {
     expect(activity.findHighestClimbingRecord(1)).to.equal(78);
   });
 });
->>>>>>> master
+
+

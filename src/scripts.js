@@ -22,14 +22,14 @@ function windowLoadHandler() {
   displayUserInfo();
   displayFriends();
   displayAverageSteps();
-  displayOuncesDrankToday();
   displayLastWeekSleep();
   let activityData = activity.getPrevDaysActive(user.id, date);
   let activityLabels = activity.getPreviousDates(user.id, date);
   displayLastWeekActivity(activityData,activityLabels,'Min Active','activityMetrics');
   let hydrationData = hydration.getPrevDaysHydration(user.id, date);
   let hydrationLabels = hydration.getPreviousDates(user.id, date);
-  displayLastWeekActivity(hydrationData,hydrationLabels,'OZ Drank','hydationConsumed');
+  displayLastWeekActivity(hydrationData,hydrationLabels,'OZ Drank','hydrationConsumedWeek');
+  makeDonutChart();
 }
 
 function instatiateUser() {
@@ -73,15 +73,6 @@ function displayAverageSteps() {
   averageStepContainer.insertAdjacentHTML('beforeend', averageStepsHTML);
 }
 
-function displayOuncesDrankToday() {
-  let ouncesDrankTodayHTML = `
-  <article class="ouncesDrankToday">
-  <p>Ounces Drank today: ${hydration.getFluidConsumedDay(user.id, date)}</p>
-  <p>Ounces Drank in the past week: ${hydration.getPrevDaysHydration(user.id)}</p>
-  </article>
-  `
-  numOunces.insertAdjacentHTML('beforeend', ouncesDrankTodayHTML);
-}
 
 
 function activeLink(event) {
@@ -189,6 +180,43 @@ function displayLastWeekSleep() {
             position: 'right'
           }
         ]
+      }
+    }
+  });
+}
+
+function makeDonutChart() {
+  var ctx = document.getElementById('hydrationConsumed').getContext('2d');
+  var ounces = hydration.getFluidConsumedDay(user.id, date);
+  var myChart = new Chart(ctx, {type: 'doughnut',
+    data: {
+      datasets: [{
+        data: [
+          ounces, 100- ounces
+        ],
+        backgroundColor: [
+          'blue',
+          'grey'
+        ],
+        label: 'Dataset 1'
+      }],
+      labels: [
+        'Oz',
+        'Oz Left to drink?'
+      ]
+    },
+    options: {
+      responsive: true,
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Chart.js Doughnut Chart'
+      },
+      animation: {
+        animateScale: true,
+        animateRotate: true,
       }
     }
   });
