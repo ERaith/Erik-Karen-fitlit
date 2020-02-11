@@ -13,8 +13,11 @@ class Activity {
     let currentUser = this.activityData.filter(data => data.userID === userID);
     return currentUser.find(minute => minute.date === date).minutesActive;
   }
-
-  getPrevDaysActive(userID, startDate) {
+  getSteps(userID, date) {
+    let currentUser = this.activityData.filter(data => data.userID === userID);
+    return currentUser.find(minute => minute.date === date).numSteps;
+  }
+  getPrevDaysData(userID, startDate,typeOfData) {
     let startDateParsed = new Date(startDate);
     let endDateParsed = new Date(startDate);
     endDateParsed.setDate(startDateParsed.getDate() - 7);
@@ -25,11 +28,10 @@ class Activity {
         return true;
       }
     });
-    return userActiveDaysData.map(data => data.minutesActive);
+    return userActiveDaysData.map(data => data[typeOfData]);
   }
-
   calculateActiveAverage(userID, startDate) {
-    let prevMinutesActive = this.getPrevDaysActive(userID, startDate);
+    let prevMinutesActive = this.getPrevDaysData(userID, startDate,'minutesActive');
     let totalActiveMinutes = prevMinutesActive.reduce((total, curVal) => {
       total += curVal;
       return total
@@ -61,7 +63,6 @@ class Activity {
   findHighestClimbingRecord(userID) {
     let currentUser = this.activityData.filter(data => data.userID === userID);
     let climbingRecord = currentUser.sort((a, b) => {
-      console.log(currentUser)
       return b.flightsOfStairs - a.flightsOfStairs;
     })
     return climbingRecord[0].flightsOfStairs;
@@ -85,20 +86,6 @@ class Activity {
     return dailyActivity.reduce((acc, user) => {
       return acc += user.minutesActive;
     }, 0) / dailyActivity.length;
-  }
-
-  getPreviousDates(userID,startDate){
-    let startDateParsed = new Date(startDate);
-    let endDateParsed = new Date(startDate);
-    endDateParsed.setDate(startDateParsed.getDate() - 7);
-    let userActivityData = this.activityData.filter(userEntry => userEntry.userID === userID);
-    let userPastDates = userActivityData.filter(function(activeDay) {
-      let day = new Date(activeDay.date);
-      if (day < startDateParsed && day >= endDateParsed) {
-        return true;
-      }
-    });
-    return userPastDates.map(day => day = day.date);
   }
 }
 
