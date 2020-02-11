@@ -67,9 +67,10 @@ main {
   display: flex;
   flex-direction: row;
   flex-wrap:wrap;
-  height: 40em;
+  height: 80vh;
   justify-content: space-around;
   padding-top: 3rem;
+  overflow-x: hidden;
 }
 
 section{
@@ -88,7 +89,6 @@ aside{
   justify-content: flex-start;
   flex-grow: 1;
 }
-
 .card{
   background: grey;
   border-radius: .2rem;
