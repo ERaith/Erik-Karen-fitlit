@@ -32,6 +32,7 @@ nav {
 .activity-container{
   display:flex;
   flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
 }
 .hydration-container{
@@ -89,16 +90,27 @@ aside{
 }
 
 .card{
-  align-items: center;
   background: grey;
   border-radius: .2rem;
   border: #355C7D solid .1rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 #355C7D;
   height:20rem;
   padding:.5rem;
-  width: 16rem;
+  width: 15rem;
   margin: .5rem;
 }
+.chart{
+  margin-top: 1rem;
+}
+.week{
+  width: 30rem;
+  height: 20rem;
+  display:flex;
+  flex-direction:column;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .friends{
   height:4rem;
   margin: .5rem;
