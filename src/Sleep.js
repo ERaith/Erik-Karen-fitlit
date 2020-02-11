@@ -7,14 +7,14 @@ class Sleep {
     let totalSleep = filteredSleep.reduce(function(runningTotal, curVal) {
       return runningTotal + curVal.hoursSlept;
     }, 0);
-    return totalSleep / filteredSleep.length;
+    return Number((totalSleep / filteredSleep.length).toFixed(2));
   }
   calcAvgSleepQualityTotalDays(userID) {
     let filteredSleepQuality = this.sleepData.filter(userEntry => userEntry.userID === userID);
     let totalQuality = filteredSleepQuality.reduce(function(runningTotal, curVal) {
       return runningTotal + curVal.sleepQuality;
     }, 0);
-    return totalQuality / filteredSleepQuality.length;
+    return Number((totalQuality / filteredSleepQuality.length).toFixed(2));
   }
   getDailySleep(userID, date) {
     let filteredSleep = this.sleepData.filter(userEntry => userEntry.userID === userID);

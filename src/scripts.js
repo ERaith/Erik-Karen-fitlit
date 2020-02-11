@@ -9,6 +9,7 @@ let sleepQuality = document.getElementById('sleepQuality');
 let userInfo = document.querySelectorAll('.userInfo');
 let friendsContainerEl = document.querySelector('.friends-container');
 let averageStepContainer = document.querySelector('.averageStepContainer');
+let sleepContainer = document.querySelector('.sleep-container')
 let userRepo;
 let curUser;
 let user;
@@ -22,14 +23,15 @@ function windowLoadHandler() {
   displayUserInfo();
   displayFriends();
   displayAverageSteps();
-  displayOuncesDrankToday();
   displayLastWeekSleep();
+  displayTodaysSleep();
   let activityData = activity.getPrevDaysActive(user.id, date);
   let activityLabels = activity.getPreviousDates(user.id, date);
   displayLastWeekActivity(activityData,activityLabels,'Min Active','activityMetrics');
   let hydrationData = hydration.getPrevDaysHydration(user.id, date);
   let hydrationLabels = hydration.getPreviousDates(user.id, date);
-  displayLastWeekActivity(hydrationData,hydrationLabels,'OZ Drank','hydationConsumed');
+  displayLastWeekActivity(hydrationData,hydrationLabels,'OZ Drank','hydrationConsumedWeek');
+  makeDonutChart();
 }
 
 function instatiateUser() {
@@ -73,23 +75,18 @@ function displayAverageSteps() {
   averageStepContainer.insertAdjacentHTML('beforeend', averageStepsHTML);
 }
 
-function displayOuncesDrankToday() {
-  let ouncesDrankTodayHTML = `
-  <article class="ouncesDrankToday">
-  <p>Ounces Drank today: ${hydration.getFluidConsumedDay(user.id, date)}</p>
-  <p>Ounces Drank in the past week: ${hydration.getPrevDaysHydration(user.id)}</p>
-  </article>
+function displayTodaysSleep() {
+  let todaysSleepHTML = `
+  <article class="card sleep">
+  <h3>Today's Sleep:</h3>
+  <p>Hours of Sleep: <span id='hoursSlept'>${sleep.getDailySleep(user.id, date)}</span></p>
+  <p>Quality of Sleep: <span id='sleepQuality'>${sleep.getDailySleepQuality(user.id, date)}</span></p>
+  <h3>Average Sleep:</h3>
+  <p>Hours of Sleep: <span id='averageHoursSlept'>${sleep.calcAvgSleepHrTotalDays(user.id)}</span></p>
+  <p>Quality of Sleep: <span id='averageSleepQuality'>${sleep.calcAvgSleepQualityTotalDays(user.id)}</span></p>
+</article>
   `
-  numOunces.insertAdjacentHTML('beforeend', ouncesDrankTodayHTML);
-}
-
-
-function activeLink(event) {
-  if (event.target.classList.contains('navLink')) {
-    document.querySelector('.active').classList.remove('active');
-    event.target.classList.add('active');
-    swapContent(event);
-  }
+  sleepContainer.insertAdjacentHTML('beforeend', todaysSleepHTML);
 }
 
 // Charts
@@ -194,6 +191,43 @@ function displayLastWeekSleep() {
   });
 }
 
+function makeDonutChart() {
+  var ctx = document.getElementById('hydrationConsumed').getContext('2d');
+  var ounces = hydration.getFluidConsumedDay(user.id, date);
+  var myChart = new Chart(ctx, {type: 'doughnut',
+    data: {
+      datasets: [{
+        data: [
+          ounces, 100- ounces
+        ],
+        backgroundColor: [
+          'blue',
+          'grey'
+        ],
+        label: 'Dataset 1'
+      }],
+      labels: [
+        'Oz',
+        'Oz Left to drink?'
+      ]
+    },
+    options: {
+      responsive: true,
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Chart.js Doughnut Chart'
+      },
+      animation: {
+        animateScale: true,
+        animateRotate: true,
+      }
+    }
+  });
+}
+
 //Temp Colors
 // backgroundColor: [
 //   'rgba(255, 99, 132, 0.2)',
@@ -214,6 +248,4 @@ function displayLastWeekSleep() {
 
 // End Chart Info
 
-
-linksParent.addEventListener('click', activeLink);
 window.onload = windowLoadHandler();
