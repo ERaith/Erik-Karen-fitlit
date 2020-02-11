@@ -40,17 +40,34 @@ function displayHydration(){
   makeDonutChart();
 }
 
-function displayActivity(){
-  numOfSteps.innerText=activity.getSteps(user.id,date);
-  minutesActive.innerText=activity.getMinutesActive(user.id,date);
-  milesWalked.innerText=activity.calculateMilesToday(user.id,date,user.strideLength);
-  let minutesActiveDays = activity.getPrevDaysActive(user.id, date);
-  let minutesActiveDaysLabels = activity.getPreviousDates(user.id, date);
-  displayLineChart(minutesActiveDays,minutesActiveDaysLabels,'Minutes Active','minActiveChart','#36C878');
-  let userStepsDays = activity.getPrevDaysStairs(user.id, date);
-  displayLineChart(userStepsDays,minutesActiveDaysLabels,'Steps Taken','stepsChart','#C8363E');
-  let stairsDays = activity.getPrevDaysSteps(user.id, date);
-  displayLineChart(stairsDays,minutesActiveDaysLabels,'Stairs Climbed','stairsChart','#C036C8');
+function displayActivity() {
+  numOfSteps.innerText = activity.getSteps(user.id, date);
+  minutesActive.innerText = activity.getMinutesActive(user.id, date);
+  milesWalked.innerText = activity.calculateMilesToday(user.id, date, user.strideLength);
+  let displayData = [{
+      dataLabel: 'Minutes Active',
+      chartID: 'minActiveChart',
+      chartColor: '#36C878',
+      dataType: 'minutesActive'
+    },
+    {
+      dataLabel: 'Steps Taken',
+      chartID: 'stepsChart',
+      chartColor: '#C8363E',
+      dataType: 'numSteps'
+    },
+    {
+      dataLabel: 'Stairs Climbed',
+      chartID: 'stairsChart',
+      chartColor: '#C036C8',
+      dataType: 'flightsOfStairs'
+    }
+  ]
+  let dates = activity.getPrevDaysData(user.id, date, 'date');
+  displayData.forEach((element) => {
+    let data = activity.getPrevDaysData(user.id, date, `${element.dataType}`);
+    displayLineChart(data, dates, element.dataLabel, element.chartID, element.chartColor);
+  })
 }
 
 function instatiateUser() {

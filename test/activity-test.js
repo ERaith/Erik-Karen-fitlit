@@ -127,15 +127,15 @@ describe('Activity', function() {
   });
 
   it('should show the minutes active in the past 7 days', function() {
-    expect(activity.getPrevDays(1, "2019/09/22",'minutesActive')).to.deep.equal([140,134, 56, 164, 120, 124, 90]);
+    expect(activity.getPrevDaysData(1, "2019/09/22",'minutesActive')).to.deep.equal([140,134, 56, 164, 120, 124, 90]);
   });
 
   it('should show the steps for the past 7 days', function() {
-    expect(activity.getPrevDays(1, "2019/09/22",'numSteps')).to.deep.equal([3577,2456,5342,4237,6783,3769,2975]);
+    expect(activity.getPrevDaysData(1, "2019/09/22",'numSteps')).to.deep.equal([3577,2456,5342,4237,6783,3769,2975]);
   });
 
   it('should show the flights of stairs the past 7 days', function() {
-    expect(activity.getPrevDays(1, "2019/09/22",'flightsOfStairs')).to.deep.equal([16,23,45,38,78,26,33]);
+    expect(activity.getPrevDaysData(1, "2019/09/22",'flightsOfStairs')).to.deep.equal([16,23,45,38,78,26,33]);
   });
 
 
