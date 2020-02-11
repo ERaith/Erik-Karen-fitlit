@@ -127,8 +127,17 @@ describe('Activity', function() {
   });
 
   it('should show the minutes active in the past 7 days', function() {
-    expect(activity.getPrevDaysActive(1, "2019/09/22")).to.deep.equal([140,134, 56, 164, 120, 124, 90]);
+    expect(activity.getPrevDays(1, "2019/09/22",'minutesActive')).to.deep.equal([140,134, 56, 164, 120, 124, 90]);
   });
+
+  it('should show the steps for the past 7 days', function() {
+    expect(activity.getPrevDays(1, "2019/09/22",'numSteps')).to.deep.equal([3577,2456,5342,4237,6783,3769,2975]);
+  });
+
+  it('should show the flights of stairs the past 7 days', function() {
+    expect(activity.getPrevDays(1, "2019/09/22",'flightsOfStairs')).to.deep.equal([16,23,45,38,78,26,33]);
+  });
+
 
   it('should be able to calculate the average minutes active from the past 7 days', function() {
     expect(activity.calculateActiveAverage(1, "2019/09/22")).to.equal(118.29);
@@ -155,7 +164,7 @@ describe('Activity', function() {
     it('should calculate Average Activity Time', function() {
       expect(activity.calculateUsersAverageActivityTime("2019/06/16")).to.equal(130);
     });
-  });
+
   it('should show the users step goals that are exceeded', function() {
     expect(activity.getExceededStepGoal(user)).to.deep.equal(["2019/06/16"]);
   });
@@ -163,6 +172,5 @@ describe('Activity', function() {
   it('should show your highest climbing record', function() {
     expect(activity.findHighestClimbingRecord(1)).to.equal(78);
   });
+    });
 });
-
-
