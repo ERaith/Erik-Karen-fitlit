@@ -93,7 +93,9 @@ function displayFriends() {
   let userSteps = activity.getSteps(user.id, date) 
   let friendsSteps = user.friends.map(friendID => {
     newFriend = new User(userRepo.findUserByID(friendID))
-   let steps = activity.getSteps(friendID, date) 
+   let steps = activity.getPrevDaysData(friendID, date, 'numSteps').reduce((a, b) => {
+     return a + b
+   }, 0);
     return friend = {
       name: newFriend.getFirstName(),
       steps: steps
