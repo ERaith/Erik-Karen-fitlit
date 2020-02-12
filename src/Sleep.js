@@ -66,7 +66,7 @@ class Sleep {
     });
     return userSleepDaysData;
   }
-  
+
   calcAverageSleepQuality() {
     let totalSleepQuality = this.sleepData.reduce(function(total, curVal) {
       return total + curVal.sleepQuality;
@@ -79,8 +79,8 @@ class Sleep {
     let usersSleepPastWeek = uniqueUsers.reduce((acc, userID) => {
       let sleepData = this.getPrevDaysSleepHrs(userID, startDate);
       if (sleepData.reduce((sum, element) => {
-          return sum += element;
-        }, 0) / sleepData.length > 3) {
+        return sum += element;
+      }, 0) / sleepData.length > 3) {
         acc.push(userID);
       }
       return acc;
@@ -92,6 +92,32 @@ class Sleep {
     let dailyUsers = this.sleepData.filter((element) => element.date = startDate);
     let longestSleeper = dailyUsers.sort((a, b) => b.hoursSlept - a.hoursSlept);
     return longestSleeper.filter((element) => longestSleeper[0].hoursSlept === element.hoursSlept)
+  }
+
+  findDepressedStreaks(userID){
+      let userSleepData = this.sleepData.filter(data => data.userID === userID);
+      let streaks = [];
+      let streak = userSleepData.reduce((acc, day) => {
+        if (acc.prevSleep > day.hoursSlept) {
+          acc.curStreak.push(day)
+        } else if (acc.curStreak.length >= 3) {
+          streaks.push({
+            endDate: day.date,
+            streakRun: acc.curStreak.length
+          });
+          acc.curStreak = [day];
+        } else {
+          acc.curStreak = [day];
+        }
+        acc.prevSleep = day.hoursSlept;
+        return acc;
+      }, {
+        prevSleep: 0,
+        curStreak: []
+      })
+      return streaks;
+
+
   }
 }
 

@@ -9,20 +9,20 @@ describe('Hydration', function() {
 
   beforeEach(() => {
     hydrationData = [{
-        "userID": 1,
-        "date": "2019/06/15",
-        "numOunces": 37
-      },
-      {
-        "userID": 1,
-        "date": "2019/07/16",
-        "numOunces": 75
-      },
-      {
-        "userID": 3,
-        "date": "2019/06/17",
-        "numOunces": 47
-      }
+      "userID": 1,
+      "date": "2019/06/15",
+      "numOunces": 37
+    },
+    {
+      "userID": 1,
+      "date": "2019/07/16",
+      "numOunces": 75
+    },
+    {
+      "userID": 3,
+      "date": "2019/06/17",
+      "numOunces": 47
+    }
     ]
     hydration = new Hydration(hydrationData);
   });
@@ -45,45 +45,45 @@ describe('Hydration', function() {
 
   it('should show the fluids consumed in the past 7 days', function() {
     hydrationData = [{
-        "userID": 1,
-        "date": "2019/09/16",
-        "numOunces": 37
-      },
-      {
-        "userID": 1,
-        "date": "2019/09/17",
-        "numOunces": 75
-      },
-      {
-        "userID": 1,
-        "date": "2019/09/18",
-        "numOunces": 42
-      },
-      {
-        "userID": 1,
-        "date": "2019/09/19",
-        "numOunces": 10
-      },
-      {
-        "userID": 1,
-        "date": "2019/09/20",
-        "numOunces": 31
-      },
-      {
-        "userID": 1,
-        "date": "2019/09/21",
-        "numOunces": 58
-      },
-      {
-        "userID": 1,
-        "date": "2019/09/22",
-        "numOunces": 68
-      },
-      {
-        "userID": 3,
-        "date": "2019/06/17",
-        "numOunces": 47
-      }
+      "userID": 1,
+      "date": "2019/09/16",
+      "numOunces": 37
+    },
+    {
+      "userID": 1,
+      "date": "2019/09/17",
+      "numOunces": 75
+    },
+    {
+      "userID": 1,
+      "date": "2019/09/18",
+      "numOunces": 42
+    },
+    {
+      "userID": 1,
+      "date": "2019/09/19",
+      "numOunces": 10
+    },
+    {
+      "userID": 1,
+      "date": "2019/09/20",
+      "numOunces": 31
+    },
+    {
+      "userID": 1,
+      "date": "2019/09/21",
+      "numOunces": 58
+    },
+    {
+      "userID": 1,
+      "date": "2019/09/22",
+      "numOunces": 68
+    },
+    {
+      "userID": 3,
+      "date": "2019/06/17",
+      "numOunces": 47
+    }
     ];
     hydration = new Hydration(hydrationData);
 

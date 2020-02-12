@@ -31,6 +31,7 @@ function windowLoadHandler() {
 
 function displaySleep() {
   displayLastWeekSleep();
+  displayTerribleSleep();
   displayTodaysSleep();
 }
 
@@ -47,23 +48,23 @@ function displayActivity() {
   mountainProgress.innerText = activity.calcProgressToMntTop(user.id);
   milesWalked.innerText = activity.calcMilesToday(user.id, date, user.strideLength);
   let displayData = [{
-      dataLabel: 'Minutes Active',
-      chartID: 'minActiveChart',
-      chartColor: '#8A9A5B',
-      dataType: 'minutesActive'
-    },
-    {
-      dataLabel: 'Steps Taken',
-      chartID: 'stepsChart',
-      chartColor: '#A13D2D',
-      dataType: 'numSteps'
-    },
-    {
-      dataLabel: 'Stairs Climbed',
-      chartID: 'stairsChart',
-      chartColor: '#e4bd62',
-      dataType: 'flightsOfStairs'
-    }
+    dataLabel: 'Minutes Active',
+    chartID: 'minActiveChart',
+    chartColor: '#8A9A5B',
+    dataType: 'minutesActive'
+  },
+  {
+    dataLabel: 'Steps Taken',
+    chartID: 'stepsChart',
+    chartColor: '#A13D2D',
+    dataType: 'numSteps'
+  },
+  {
+    dataLabel: 'Stairs Climbed',
+    chartID: 'stairsChart',
+    chartColor: '#e4bd62',
+    dataType: 'flightsOfStairs'
+  }
   ]
   let dates = activity.getPrevDaysData(user.id, date, 'date');
   displayData.forEach((element) => {
@@ -102,7 +103,7 @@ function displayFriends() {
     }, 0);
     return friend = {
       name: newFriend.getFirstName(),
-      steps: steps
+      steps
     }
   })
 
@@ -120,7 +121,7 @@ function displayFriends() {
      <p>Steps: ${person.steps} </p>
     </div>
     <div>
-      <h${index+1}>${index+1}</h${index+1}>
+      <h${index + 1}>${index + 1}</h${index + 1}>
     </div>
     </article>
     `
@@ -154,6 +155,20 @@ function displayTodaysSleep() {
   sleepContainer.insertAdjacentHTML('afterbegin', todaysSleepHTML);
 }
 
+function displayTerribleSleep() {
+  let terribleSleep = sleep.findDepressedStreaks(user.id);
+  terribleSleep = terribleSleep.map(day=>{
+    return `Date:    <span>${day.endDate}</span> <p>Declining days: <span>${day.streakRun}</span></p>`
+  }).join('');
+  let terribleSleepHTML = `
+  <article class="card sleep terrible">
+  <h3>Dates of Decending Sleep:</h3>
+  ${terribleSleep}
+</article>
+  `
+  sleepContainer.insertAdjacentHTML('afterbegin', terribleSleepHTML);
+}
+
 // Charts
 
 Chart.defaults.global.defaultFontColor = 'white';
@@ -163,12 +178,12 @@ function displayLineChart(data, labels, label, chartType, color) {
   var myLineChart = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: labels,
+      labels,
       datasets: [{
-        label: label,
+        label,
         backgroundColor: color,
         borderColor: '#AEBDCB',
-        data: data,
+        data,
         fill: true,
       }]
     },
@@ -239,21 +254,21 @@ function displayLastWeekSleep() {
           }
         }],
         xAxes: [{
-            ticks: {
-              fontColor: 'rgba(54, 162, 235, 1)'
-            },
-            id: 'sleep-y-axis',
-            type: 'linear',
-            position: 'right'
+          ticks: {
+            fontColor: 'rgba(54, 162, 235, 1)'
           },
-          {
-            ticks: {
-              fontColor: 'rgba(255, 206, 86, 1)'
-            },
-            id: 'quality-y-axis',
-            type: 'linear',
-            position: 'right'
-          }
+          id: 'sleep-y-axis',
+          type: 'linear',
+          position: 'right'
+        },
+        {
+          ticks: {
+            fontColor: 'rgba(255, 206, 86, 1)'
+          },
+          id: 'quality-y-axis',
+          type: 'linear',
+          position: 'right'
+        }
         ]
       }
     }

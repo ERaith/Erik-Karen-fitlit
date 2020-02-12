@@ -68,7 +68,7 @@ class Activity {
     return climbingRecord[0].flightsOfStairs;
   }
 
-  calcUsersAverage(date,type){
+  calcUsersAverage(date, type) {
     let dailyActivity = this.activityData.filter(data => data.date === date);
     return dailyActivity.reduce((acc, user) => {
       return acc += user[type];
