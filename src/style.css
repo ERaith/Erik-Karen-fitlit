@@ -101,17 +101,17 @@ aside{
   border-radius: .2rem;
   border: #355C7D solid .1rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 #355C7D;
-  height:17rem;
+  height:16rem;
   padding:.5rem;
-  width: 15rem;
+  width: 24rem;
   margin: .5rem;
 }
 .chart{
   margin-top: 1rem;
 }
 .week{
-  width: 22rem;
-  height: 20rem;
+  width: 24rem;
+  height: 16rem;
   display:flex;
   flex-direction:column;
   justify-content: space-between;
@@ -121,14 +121,15 @@ aside{
 .friends{
   display: flex;
   justify-content: space-between;
-  height:4rem;
+  height:5rem;
+  padding: .6rem;
   margin: .5rem;
 }
 
 .friends-container {
   border-left: #F8B195 solid 5px;
 }
- 
+
 .hydration {
   /* width: 250px;
   height: 250px; */
@@ -145,4 +146,7 @@ h3 {
 img {
   width: 4rem;
   height: 4rem;
+}
+.mountain{
+  background-image: url("../data/mountain-background.jpg");
 }

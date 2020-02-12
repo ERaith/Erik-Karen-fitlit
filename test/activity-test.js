@@ -195,6 +195,9 @@ describe('Activity', function() {
   });
   it('should show your previous streaks', function() {
     expect(activity.findStreaks(2)).to.deep.equal([{endDate: "2019/06/19",streakRun: 3}]);
+
+  it('should show how many 14ers you climbed', function() {
+    expect(activity.calculateProgressToMntTop(1)).to.equal(.22);
   });
 
     });

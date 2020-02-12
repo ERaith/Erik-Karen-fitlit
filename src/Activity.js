@@ -115,6 +115,13 @@ days in Streak: ;
 }]
 */
 
+  calculateProgressToMntTop(userID){
+    let currentUser = this.activityData.filter(data => data.userID === userID);
+    let total = currentUser.reduce((acc,day)=>{
+      return acc += day.flightsOfStairs;
+    },0)
+    return (Math.round((total/1400)*100))/100;
+  }
 }
 
 if (typeof module !== 'undefined') {
