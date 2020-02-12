@@ -88,11 +88,11 @@ class Activity {
     }, 0) / dailyActivity.length;
   }
   calculateProgressToMntTop(userID){
-    let currentUser = this.activityData.filter(data => data.userID === userData.id);
+    let currentUser = this.activityData.filter(data => data.userID === userID);
     let total = currentUser.reduce((acc,day)=>{
       return acc += day.flightsOfStairs;
     },0)
-    return Math.round((total/1400)*100);
+    return (Math.round((total/1400)*100))/100;
   }
 }
 

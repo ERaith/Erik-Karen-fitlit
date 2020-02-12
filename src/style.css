@@ -115,7 +115,9 @@ aside{
   height:4rem;
   margin: .5rem;
 }
-
+.mountain{
+  background-image: url("../data/mountain-background.jpg");
+}
 .activity {
 
 }

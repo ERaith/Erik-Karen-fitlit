@@ -174,7 +174,7 @@ describe('Activity', function() {
   });
 
   it('should show how many 14ers you climbed', function() {
-    expect(activity.calculateProgressToMntTop(1)).to.equal(22);
+    expect(activity.calculateProgressToMntTop(1)).to.equal(.22);
   });
 
     });

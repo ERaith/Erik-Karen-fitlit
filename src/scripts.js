@@ -10,6 +10,7 @@ let userInfo = document.querySelectorAll('.userInfo');
 let friendsContainerEl = document.querySelector('.friends-container');
 let averageStepContainer = document.querySelector('.averageStepContainer');
 let sleepContainer = document.querySelector('.sleep-container')
+let mountainProgress = document.getElementById('mountainProgress')
 let userRepo;
 let curUser;
 let user;
@@ -43,6 +44,7 @@ function displayHydration(){
 function displayActivity() {
   numOfSteps.innerText = activity.getSteps(user.id, date);
   minutesActive.innerText = activity.getMinutesActive(user.id, date);
+  mountainProgress.innerText = activity.calculateProgressToMntTop(user.id);
   milesWalked.innerText = activity.calculateMilesToday(user.id, date, user.strideLength);
   let displayData = [{
       dataLabel: 'Minutes Active',
