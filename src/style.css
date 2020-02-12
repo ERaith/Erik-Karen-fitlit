@@ -76,7 +76,7 @@ main {
   flex-wrap:wrap;
   height: 80vh;
   justify-content: space-around;
-  padding-top: 3rem;
+  /* padding-top: 3rem; */
   overflow-x: hidden;
 }
 
