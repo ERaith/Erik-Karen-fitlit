@@ -29,29 +29,12 @@ nav {
 .sleep-container,
 .activity-container,
 .hydration-container {
-  display:flex;
-  flex-direction: column;
   align-items: center;
   display: flex;
   flex-direction: column;
   margin: 10px;
 }
 
-ul {
-  list-style-type: none;
-}
-
-li {
-  cursor: default;
-  display: inline-block;
-  flex-grow: 1;
-  font-size: 1.25em;
-  text-align: center;
-}
-
-.active {
-  background-color: #6C5B7B;
-}
 
 span {
   color: white;
@@ -95,7 +78,7 @@ aside {
   padding: .5rem;
   width: 24rem;
   font-size: 1.1rem;
-    background-color:#355C7D;
+  background-color:#355C7D;
 }
 
 .chart {
