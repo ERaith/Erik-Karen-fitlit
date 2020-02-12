@@ -133,7 +133,7 @@ function displayAverageSteps() {
 
 function displayTodaysSleep() {
   let todaysSleepHTML = `
-  <h2>Sleep</h2>
+  <img src="../assets/sleep.svg" alt="">
   <article class="card sleep">
   <h3>Today's Sleep:</h3>
   <p>Hours of Sleep: <span id='hoursSlept'>${sleep.getDailySleep(user.id, date)}</span></p>

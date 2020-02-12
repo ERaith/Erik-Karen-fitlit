@@ -126,7 +126,7 @@ aside{
 }
 
 .friends-container {
-  border-left: #355C7D solid 5px;
+  border-left: #F8B195 solid 5px;
 }
  
 .hydration {
@@ -140,4 +140,9 @@ aside{
 
 h3 {
   text-decoration: underline;
+}
+
+img {
+  width: 4rem;
+  height: 4rem;
 }
