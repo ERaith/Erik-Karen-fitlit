@@ -98,9 +98,9 @@ aside{
   border-radius: .2rem;
   border: #355C7D solid .1rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 #355C7D;
-  height:20rem;
+  height:15rem;
   padding:.5rem;
-  width: 15rem;
+  width: 30rem;
   margin: .5rem;
 }
 .chart{
@@ -118,11 +118,10 @@ aside{
 .friends{
   display: flex;
   justify-content: space-between;
-  height:4rem;
+  height:5rem;
+  padding: .6rem;
   margin: .5rem;
 }
 .mountain{
   background-image: url("../data/mountain-background.jpg");
-}
-
 }

@@ -92,7 +92,9 @@ function displayUserInfo() {
 }
 
 function displayFriends() {
-  let userSteps = activity.getSteps(user.id, date) 
+  let userSteps = activity.getPrevDaysData(user.id, date,'numSteps').reduce((a, b) => {
+    return a + b
+  }, 0);
   let friendsSteps = user.friends.map(friendID => {
     newFriend = new User(userRepo.findUserByID(friendID))
    let steps = activity.getPrevDaysData(friendID, date, 'numSteps').reduce((a, b) => {
@@ -103,7 +105,7 @@ function displayFriends() {
       steps: steps
     }
   })
- 
+
   friendsSteps.push({name: 'You!', steps: userSteps});
   friendsSteps.sort((a, b) => b.steps - a.steps);
 
@@ -111,7 +113,7 @@ function displayFriends() {
     let friendCardHTML = `
     <article class="card friends">
     <div>
-     <p>Name: ${person.name} </p>
+     <h2> ${person.name}</h2>
      <p>Steps: ${person.steps} </p>
     </div>
     <div>
@@ -139,6 +141,7 @@ function displayTodaysSleep() {
   <h3>Today's Sleep:</h3>
   <p>Hours of Sleep: <span id='hoursSlept'>${sleep.getDailySleep(user.id, date)}</span></p>
   <p>Quality of Sleep: <span id='sleepQuality'>${sleep.getDailySleepQuality(user.id, date)}</span></p>
+  <p>Someone else Slept: <span id='sleepQuality'>${sleep.findLongestSleepers(date)[0].hoursSlept} hrs!</span></p>
   <h3>Average Sleep:</h3>
   <p>Hours of Sleep: <span id='averageHoursSlept'>${sleep.calcAvgSleepHrTotalDays(user.id)}</span></p>
   <p>Quality of Sleep: <span id='averageSleepQuality'>${sleep.calcAvgSleepQualityTotalDays(user.id)}</span></p>
