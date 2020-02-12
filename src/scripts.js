@@ -103,11 +103,16 @@ function displayFriends() {
   friendsSteps.push({name: 'You!', steps: userSteps});
   friendsSteps.sort((a, b) => b.steps - a.steps);
 
-  friendsSteps.forEach(function(person) {
+  friendsSteps.forEach(function(person, index) {
     let friendCardHTML = `
     <article class="card friends">
+    <div>
      <p>Name: ${person.name} </p>
      <p>Steps: ${person.steps} </p>
+    </div>
+    <div>
+      <h${index+1}>${index+1}</h${index+1}>
+    </div>
     </article>
     `
     friendsContainerEl.insertAdjacentHTML('beforeend', friendCardHTML);
