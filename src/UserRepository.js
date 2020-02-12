@@ -8,7 +8,7 @@ class UserRepository {
     return user;
   }
 
-  calculateAverageStepGoal(userSteps) {
+  calcAverageStepGoal(userSteps) {
     let stepTotal = this.data.reduce((acc, step) => {
       return acc += step.dailyStepGoal;
     }, 0);

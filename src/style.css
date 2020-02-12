@@ -67,7 +67,8 @@ li {
 }
 
 span {
-  color: #6C5B7B
+  color: white;
+  font-weight: 400;
 }
 
 /* Main portion of Site */
@@ -106,6 +107,8 @@ aside {
   margin: .5rem;
   padding: .5rem;
   width: 24rem;
+  font-size: 1.1rem;
+    background-color:#355C7D;
 }
 
 .chart {
@@ -117,7 +120,7 @@ aside {
   display: flex;
   flex-direction: column;
   height: 16rem;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 24rem;
 }
 
@@ -130,7 +133,7 @@ aside {
 }
 
 .friends-container {
-  border-left: #F8B195 solid 5px;
+  border-left: #F67280 solid 5px;
 }
 
 .hydration {

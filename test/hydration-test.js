@@ -35,8 +35,8 @@ describe('Hydration', function() {
     expect(hydration).to.be.an.instanceof(Hydration);
   });
 
-  it('should calculate the average fluid ounces conusmed per day for all time', function() {
-    expect(hydration.calculateAverageFluidsConsumed(1)).to.equal(56);
+  it('should calc the average fluid ounces conusmed per day for all time', function() {
+    expect(hydration.calcAverageFluidsConsumed(1)).to.equal(56);
   });
 
   it('should show how many fluid ounces conusmed that day', function() {

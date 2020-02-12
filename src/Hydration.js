@@ -3,7 +3,7 @@ class Hydration {
     this.hydrationData = hydrationData;
   }
 
-  calculateAverageFluidsConsumed(userID) {
+  calcAverageFluidsConsumed(userID) {
     let currentUser = this.hydrationData.filter(data => data.userID === userID);
     let sum = currentUser.reduce((acc, fluids) => {
       return acc += fluids.numOunces;
@@ -29,6 +29,7 @@ class Hydration {
     });
     return userHydrationDaysData.map(data => data.numOunces);
   }
+
   getPreviousDates(userID, startDate) {
     let startDateParsed = new Date(startDate);
     let endDateParsed = new Date(startDate);

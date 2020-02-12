@@ -2,6 +2,7 @@ class Sleep {
   constructor(sleepData) {
     this.sleepData = sleepData;
   }
+
   calcAvgSleepHrTotalDays(userID) {
     let filteredSleep = this.sleepData.filter(userEntry => userEntry.userID === userID);
     let totalSleep = filteredSleep.reduce(function(runningTotal, curVal) {
@@ -9,6 +10,7 @@ class Sleep {
     }, 0);
     return Number((totalSleep / filteredSleep.length).toFixed(2));
   }
+
   calcAvgSleepQualityTotalDays(userID) {
     let filteredSleepQuality = this.sleepData.filter(userEntry => userEntry.userID === userID);
     let totalQuality = filteredSleepQuality.reduce(function(runningTotal, curVal) {
@@ -16,10 +18,12 @@ class Sleep {
     }, 0);
     return Number((totalQuality / filteredSleepQuality.length).toFixed(2));
   }
+
   getDailySleep(userID, date) {
     let filteredSleep = this.sleepData.filter(userEntry => userEntry.userID === userID);
     return filteredSleep.find(day => day.date === date).hoursSlept;
   }
+
   getDailySleepQuality(userID, date) {
     let filteredSleepQuality = this.sleepData.filter(userEntry => userEntry.userID === userID);
     return filteredSleepQuality.find(day => day.date === date).sleepQuality;
@@ -48,6 +52,7 @@ class Sleep {
     let userSleepDaysData = this.getPreviousDaysData(userID, startDate);
     return userSleepDaysData.map(dailyUserSleep => dailyUserSleep.sleepQuality);
   }
+
   getPreviousDaysData(userID, startDate) {
     let startDateParsed = new Date(startDate);
     let endDateParsed = new Date(startDate);
@@ -61,6 +66,7 @@ class Sleep {
     });
     return userSleepDaysData;
   }
+  
   calcAverageSleepQuality() {
     let totalSleepQuality = this.sleepData.reduce(function(total, curVal) {
       return total + curVal.sleepQuality;

@@ -3,7 +3,7 @@ class Activity {
     this.activityData = activityData;
   }
 
-  calculateMilesToday(userID, date, strideLength) {
+  calcMilesToday(userID, date, strideLength) {
     let currentUser = this.activityData.filter(data => data.userID === userID);
     let distance = currentUser.find(stride => stride.date === date).numSteps * strideLength;
     return Number((distance / 5280).toFixed(2));
@@ -30,7 +30,7 @@ class Activity {
     });
     return userActiveDaysData.map(data => data[typeOfData]);
   }
-  calculateActiveAverage(userID, startDate) {
+  calcActiveAverage(userID, startDate) {
     let prevMinutesActive = this.getPrevDaysData(userID, startDate, 'minutesActive');
     let totalActiveMinutes = prevMinutesActive.reduce((total, curVal) => {
       total += curVal;
@@ -67,26 +67,14 @@ class Activity {
     })
     return climbingRecord[0].flightsOfStairs;
   }
-  calculateUsersAverageStairs(date) {
+
+  calcUsersAverage(date,type){
     let dailyActivity = this.activityData.filter(data => data.date === date);
     return dailyActivity.reduce((acc, user) => {
-      return acc += user.flightsOfStairs;
+      return acc += user[type];
     }, 0) / dailyActivity.length;
   }
 
-  calculateUsersAverageSteps(date) {
-    let dailyActivity = this.activityData.filter(data => data.date === date);
-    return dailyActivity.reduce((acc, user) => {
-      return acc += user.numSteps;
-    }, 0) / dailyActivity.length;
-  }
-
-  calculateUsersAverageActivityTime(date) {
-    let dailyActivity = this.activityData.filter(data => data.date === date);
-    return dailyActivity.reduce((acc, user) => {
-      return acc += user.minutesActive;
-    }, 0) / dailyActivity.length;
-  }
 
   findStreaks(userID) {
     let userActivityData = this.activityData.filter(data => data.userID === userID);
@@ -118,7 +106,7 @@ class Activity {
   }]
   */
 
-  calculateProgressToMntTop(userID) {
+  calcProgressToMntTop(userID) {
     let currentUser = this.activityData.filter(data => data.userID === userID);
     let total = currentUser.reduce((acc, day) => {
       return acc += day.flightsOfStairs;

@@ -45,11 +45,11 @@ describe('Sleep', function() {
     expect(sleep).to.be.an.instanceof(Sleep);
   });
 
-  it('should calculate average num of hours slepts per day', function() {
+  it('should calc average num of hours slepts per day', function() {
     expect(sleep.calcAvgSleepHrTotalDays(1)).to.equal(3);
   });
 
-  it('should calculate the average sleep quality per day', function() {
+  it('should calc the average sleep quality per day', function() {
     expect(sleep.calcAvgSleepQualityTotalDays(1)).to.equal(4);
   });
 
@@ -117,7 +117,7 @@ describe('Sleep', function() {
       expect(sleep.getPrevDaysSleepQuality(1, "2019/06/17")).to.deep.equal([4.7, 4.7, 4.7, 4.7, 4.7, 4.7, 4.7])
     });
 
-    it('should be able to calculate the average sleep across all users', function() {
+    it('should be able to calc the average sleep across all users', function() {
       expect(sleep.calcAverageSleepQuality()).to.equal(4.4875);
     });
 

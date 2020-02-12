@@ -137,11 +137,11 @@ describe('Activity', function() {
         expect(activity).to.be.an.instanceof(Activity);
       });
 
-      it('should calculate miles walked today', function() {
-        expect(activity.calculateMilesToday(1, "2019/06/15", 4.3)).to.equal(2.81);
+      it('should calc miles walked today', function() {
+        expect(activity.calcMilesToday(1, "2019/06/15", 4.3)).to.equal(2.81);
       });
 
-      it('should calculate miles walked today', function() {
+      it('should calc miles walked today', function() {
         expect(activity.getMinutesActive(1, "2019/06/16")).to.equal(130);
       });
 
@@ -158,8 +158,8 @@ describe('Activity', function() {
       });
 
 
-      it('should be able to calculate the average minutes active from the past 7 days', function() {
-        expect(activity.calculateActiveAverage(1, "2019/09/22")).to.equal(118.29);
+      it('should be able to calc the average minutes active from the past 7 days', function() {
+        expect(activity.calcActiveAverage(1, "2019/09/22")).to.equal(118.29);
       });
 
       describe('check reached goal', function() {
@@ -173,15 +173,15 @@ describe('Activity', function() {
         });
       });
 
-      describe('calculate Averages per day', function() {
-        it('should calculate Average Stairs climbed', function() {
-          expect(activity.calculateUsersAverageStairs("2019/06/16")).to.equal(23);
+      describe('calc Averages per day', function() {
+        it('should calc Average Stairs climbed', function() {
+          expect(activity.calcUsersAverage("2019/06/16",'flightsOfStairs')).to.equal(23);
         });
-        it('should calculate Average steps taken', function() {
-          expect(activity.calculateUsersAverageSteps("2019/06/16")).to.equal(6667.666666666667);
+        it('should calc Average steps taken', function() {
+          expect(activity.calcUsersAverage("2019/06/16",'numSteps')).to.equal(6667.666666666667);
         });
-        it('should calculate Average Activity Time', function() {
-          expect(activity.calculateUsersAverageActivityTime("2019/06/16")).to.equal(130);
+        it('should calc Average Activity Time', function() {
+          expect(activity.calcUsersAverage("2019/06/16",'minutesActive')).to.equal(130);
         });
 
         it('should show the users step goals that are exceeded', function() {
@@ -198,7 +198,7 @@ describe('Activity', function() {
           }]);
 
           it('should show how many 14ers you climbed', function() {
-            expect(activity.calculateProgressToMntTop(1)).to.equal(.22);
+            expect(activity.calcProgressToMntTop(1)).to.equal(.22);
           });
 
         });

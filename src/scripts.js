@@ -44,8 +44,8 @@ function displayHydration() {
 function displayActivity() {
   numOfSteps.innerText = activity.getSteps(user.id, date);
   minutesActive.innerText = activity.getMinutesActive(user.id, date);
-  mountainProgress.innerText = activity.calculateProgressToMntTop(user.id);
-  milesWalked.innerText = activity.calculateMilesToday(user.id, date, user.strideLength);
+  mountainProgress.innerText = activity.calcProgressToMntTop(user.id);
+  milesWalked.innerText = activity.calcMilesToday(user.id, date, user.strideLength);
   let displayData = [{
       dataLabel: 'Minutes Active',
       chartID: 'minActiveChart',
@@ -132,7 +132,7 @@ function displayAverageSteps() {
   let averageStepsHTML = `
   <article class="averageScore">
     <p class="stats">Your average steps compared with others:</p>
-    <p>${userRepo.calculateAverageStepGoal(user.dailyStepGoal)}%</p>
+    <p>${userRepo.calcAverageStepGoal(user.dailyStepGoal)}%</p>
   </article>
   `
   averageStepContainer.insertAdjacentHTML('beforeend', averageStepsHTML);
