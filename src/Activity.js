@@ -87,6 +87,34 @@ class Activity {
       return acc += user.minutesActive;
     }, 0) / dailyActivity.length;
   }
+
+  findStreaks(userID){
+    let userActivityData = this.activityData.filter(data=>data.userID ===userID);
+    let streaks = [];
+    let streak = userActivityData.reduce((acc,day)=>{
+      if(acc.prevNumSteps < day.numSteps){
+        acc.curStreak.push(day)
+      }else if(acc.curStreak.length>=3) {
+        streaks.push({endDate:day.date,streakRun:acc.curStreak.length});
+        acc.curStreak =[day];
+      } else {
+        acc.curStreak =[day];
+      }
+      acc.prevNumSteps = day.numSteps;
+      return acc;
+    },{
+      prevNumSteps:0,
+      curStreak:[]
+    })
+    return streaks;
+  }
+/*
+streaks [{
+endDate : ;
+days in Streak: ;
+}]
+*/
+
   calculateProgressToMntTop(userID){
     let currentUser = this.activityData.filter(data => data.userID === userID);
     let total = currentUser.reduce((acc,day)=>{

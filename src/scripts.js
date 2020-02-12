@@ -92,11 +92,31 @@ function displayUserInfo() {
 }
 
 function displayFriends() {
-  user.friends.forEach(function(friendId) {
+  let userSteps = activity.getSteps(user.id, date) 
+  let friendsSteps = user.friends.map(friendID => {
+    newFriend = new User(userRepo.findUserByID(friendID))
+   let steps = activity.getPrevDaysData(friendID, date, 'numSteps').reduce((a, b) => {
+     return a + b
+   }, 0);
+    return friend = {
+      name: newFriend.getFirstName(),
+      steps: steps
+    }
+  })
+ 
+  friendsSteps.push({name: 'You!', steps: userSteps});
+  friendsSteps.sort((a, b) => b.steps - a.steps);
+
+  friendsSteps.forEach(function(person, index) {
     let friendCardHTML = `
     <article class="card friends">
-     <p>${userRepo.findUserByID(friendId).name} </p>
-     <p>DailyStepGoal: ${userRepo.findUserByID(friendId).dailyStepGoal} </p>
+    <div>
+     <p>Name: ${person.name} </p>
+     <p>Steps: ${person.steps} </p>
+    </div>
+    <div>
+      <h${index+1}>${index+1}</h${index+1}>
+    </div>
     </article>
     `
     friendsContainerEl.insertAdjacentHTML('beforeend', friendCardHTML);

@@ -20,6 +20,10 @@ header {
   padding: 1%;
 }
 
+h1 {
+  font-size: 2rem;
+}
+
 nav {
   background-color: #C06C84;
 }
@@ -112,20 +116,13 @@ aside{
 }
 
 .friends{
+  display: flex;
+  justify-content: space-between;
   height:4rem;
   margin: .5rem;
 }
 .mountain{
   background-image: url("../data/mountain-background.jpg");
 }
-.activity {
-
-}
-
-.hydration {
-
-}
-
-.sleep {
 
 }
