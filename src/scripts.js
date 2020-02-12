@@ -29,41 +29,42 @@ function windowLoadHandler() {
   displayHydration();
 }
 
-function displaySleep(){
+function displaySleep() {
   displayLastWeekSleep();
+  displayTerribleSleep();
   displayTodaysSleep();
 }
 
-function displayHydration(){
+function displayHydration() {
   let hydrationData = hydration.getPrevDaysHydration(user.id, date);
   let hydrationLabels = hydration.getPreviousDates(user.id, date);
-  displayLineChart(hydrationData,hydrationLabels,'OZ Drank','hydrationConsumedWeek','#355C7D');
+  displayLineChart(hydrationData, hydrationLabels, 'OZ Drank', 'hydrationConsumedWeek', '#355C7D');
   makeDonutChart();
 }
 
 function displayActivity() {
   numOfSteps.innerText = activity.getSteps(user.id, date);
   minutesActive.innerText = activity.getMinutesActive(user.id, date);
-  mountainProgress.innerText = activity.calculateProgressToMntTop(user.id);
-  milesWalked.innerText = activity.calculateMilesToday(user.id, date, user.strideLength);
+  mountainProgress.innerText = activity.calcProgressToMntTop(user.id);
+  milesWalked.innerText = activity.calcMilesToday(user.id, date, user.strideLength);
   let displayData = [{
-      dataLabel: 'Minutes Active',
-      chartID: 'minActiveChart',
-      chartColor: '#8A9A5B',
-      dataType: 'minutesActive'
-    },
-    {
-      dataLabel: 'Steps Taken',
-      chartID: 'stepsChart',
-      chartColor: '#A13D2D',
-      dataType: 'numSteps'
-    },
-    {
-      dataLabel: 'Stairs Climbed',
-      chartID: 'stairsChart',
-      chartColor: '#e4bd62',
-      dataType: 'flightsOfStairs'
-    }
+    dataLabel: 'Minutes Active',
+    chartID: 'minActiveChart',
+    chartColor: '#8A9A5B',
+    dataType: 'minutesActive'
+  },
+  {
+    dataLabel: 'Steps Taken',
+    chartID: 'stepsChart',
+    chartColor: '#A13D2D',
+    dataType: 'numSteps'
+  },
+  {
+    dataLabel: 'Stairs Climbed',
+    chartID: 'stairsChart',
+    chartColor: '#e4bd62',
+    dataType: 'flightsOfStairs'
+  }
   ]
   let dates = activity.getPrevDaysData(user.id, date, 'date');
   displayData.forEach((element) => {
@@ -92,21 +93,24 @@ function displayUserInfo() {
 }
 
 function displayFriends() {
-  let userSteps = activity.getPrevDaysData(user.id, date,'numSteps').reduce((a, b) => {
+  let userSteps = activity.getPrevDaysData(user.id, date, 'numSteps').reduce((a, b) => {
     return a + b
   }, 0);
   let friendsSteps = user.friends.map(friendID => {
     newFriend = new User(userRepo.findUserByID(friendID))
-   let steps = activity.getPrevDaysData(friendID, date, 'numSteps').reduce((a, b) => {
-     return a + b
-   }, 0);
+    let steps = activity.getPrevDaysData(friendID, date, 'numSteps').reduce((a, b) => {
+      return a + b
+    }, 0);
     return friend = {
       name: newFriend.getFirstName(),
-      steps: steps
+      steps
     }
   })
 
-  friendsSteps.push({name: 'You!', steps: userSteps});
+  friendsSteps.push({
+    name: 'You!',
+    steps: userSteps
+  });
   friendsSteps.sort((a, b) => b.steps - a.steps);
 
   friendsSteps.forEach(function(person, index) {
@@ -117,7 +121,7 @@ function displayFriends() {
      <p>Steps: ${person.steps} </p>
     </div>
     <div>
-      <h${index+1}>${index+1}</h${index+1}>
+      <h${index + 1}>${index + 1}</h${index + 1}>
     </div>
     </article>
     `
@@ -129,7 +133,7 @@ function displayAverageSteps() {
   let averageStepsHTML = `
   <article class="averageScore">
     <p class="stats">Your average steps compared with others:</p>
-    <p>${userRepo.calculateAverageStepGoal(user.dailyStepGoal)}%</p>
+    <p>${userRepo.calcAverageStepGoal(user.dailyStepGoal)}%</p>
   </article>
   `
   averageStepContainer.insertAdjacentHTML('beforeend', averageStepsHTML);
@@ -151,55 +155,69 @@ function displayTodaysSleep() {
   sleepContainer.insertAdjacentHTML('afterbegin', todaysSleepHTML);
 }
 
+function displayTerribleSleep() {
+  let terribleSleep = sleep.findDepressedStreaks(user.id);
+  terribleSleep = terribleSleep.map(day=>{
+    return `Date:    <span>${day.endDate}</span> <p>Declining days: <span>${day.streakRun}</span></p>`
+  }).join('');
+  let terribleSleepHTML = `
+  <article class="card sleep terrible">
+  <h3>Dates of Decending Sleep:</h3>
+  ${terribleSleep}
+</article>
+  `
+  sleepContainer.insertAdjacentHTML('afterbegin', terribleSleepHTML);
+}
+
 // Charts
 
 Chart.defaults.global.defaultFontColor = 'white';
 
-function displayLineChart(data,labels,label,chartType,color) {
+function displayLineChart(data, labels, label, chartType, color) {
   var ctx = document.getElementById(chartType).getContext('2d');
   var myLineChart = new Chart(ctx, {
-			type: 'line',
-			data: {
-				labels: labels,
-				datasets: [{
-					label: label,
-					backgroundColor: color,
-					borderColor: '#AEBDCB',
-					data: data,
-					fill: true,
-				}]
-			},
-			options: {
-        legend:{
-          display:false
-        },
-				responsive: true,
-				tooltips: {
-					mode: 'index',
-					intersect: false,
-				},
-				hover: {
-					mode: 'nearest',
-					intersect: true
-				},
-				scales: {
-					xAxes: [{
-						display: true,
-						scaleLabel: {
-							display: false,
-							labelString: 'Date'
-						}
-					}],
-					yAxes: [{
-						display: true,
-						scaleLabel: {
-							display: true,
-							labelString: label
-						}
-					}]
-				}
-			}
-		});
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label,
+        backgroundColor: color,
+        borderColor: '#AEBDCB',
+        data,
+        fill: true,
+      }]
+    },
+    options: {
+      legend: {
+        display: false
+      },
+      responsive: true,
+      tooltips: {
+        mode: 'index',
+        intersect: false,
+      },
+      hover: {
+        mode: 'nearest',
+        intersect: true
+      },
+      scales: {
+        xAxes: [{
+          display: true,
+          scaleLabel: {
+            display: false,
+            labelString: 'Date'
+          }
+        }],
+        yAxes: [{
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: label
+          }
+        }]
+      }
+    }
+  });
 }
 
 function displayLastWeekSleep() {
@@ -236,21 +254,21 @@ function displayLastWeekSleep() {
           }
         }],
         xAxes: [{
-            ticks: {
-              fontColor: 'rgba(54, 162, 235, 1)'
-            },
-            id: 'sleep-y-axis',
-            type: 'linear',
-            position: 'right'
+          ticks: {
+            fontColor: 'rgba(54, 162, 235, 1)'
           },
-          {
-            ticks: {
-              fontColor: 'rgba(255, 206, 86, 1)'
-            },
-            id: 'quality-y-axis',
-            type: 'linear',
-            position: 'right'
-          }
+          id: 'sleep-y-axis',
+          type: 'linear',
+          position: 'right'
+        },
+        {
+          ticks: {
+            fontColor: 'rgba(255, 206, 86, 1)'
+          },
+          id: 'quality-y-axis',
+          type: 'linear',
+          position: 'right'
+        }
         ]
       }
     }
@@ -260,11 +278,12 @@ function displayLastWeekSleep() {
 function makeDonutChart() {
   var ctx = document.getElementById('hydrationConsumed').getContext('2d');
   var ounces = hydration.getFluidConsumedDay(user.id, date);
-  var myChart = new Chart(ctx, {type: 'doughnut',
+  var myChart = new Chart(ctx, {
+    type: 'doughnut',
     data: {
       datasets: [{
         data: [
-          ounces, 101- ounces
+          ounces, 101 - ounces
         ],
         backgroundColor: [
           '#355C7D',
@@ -278,8 +297,8 @@ function makeDonutChart() {
       ]
     },
     options: {
-      legend:{
-        display:false
+      legend: {
+        display: false
       },
       responsive: true,
       title: {

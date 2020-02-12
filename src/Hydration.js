@@ -3,9 +3,9 @@ class Hydration {
     this.hydrationData = hydrationData;
   }
 
-  calculateAverageFluidsConsumed(userID) {
-   let currentUser = this.hydrationData.filter(data => data.userID === userID);
-   let sum =  currentUser.reduce((acc, fluids) => {
+  calcAverageFluidsConsumed(userID) {
+    let currentUser = this.hydrationData.filter(data => data.userID === userID);
+    let sum = currentUser.reduce((acc, fluids) => {
       return acc += fluids.numOunces;
     }, 0)
     return sum / currentUser.length;
@@ -28,20 +28,21 @@ class Hydration {
       }
     });
     return userHydrationDaysData.map(data => data.numOunces);
-   }
-   getPreviousDates(userID,startDate){
-     let startDateParsed = new Date(startDate);
-     let endDateParsed = new Date(startDate);
-     endDateParsed.setDate(startDateParsed.getDate() - 7);
-     let userHydrationData = this.hydrationData.filter(userEntry => userEntry.userID === userID);
-     let userPastDates = userHydrationData.filter(function(activeDay) {
-       let day = new Date(activeDay.date);
-       if (day < startDateParsed && day >= endDateParsed) {
-         return true;
-       }
-     });
-     return userPastDates.map(day => day = day.date);
-   }
+  }
+
+  getPreviousDates(userID, startDate) {
+    let startDateParsed = new Date(startDate);
+    let endDateParsed = new Date(startDate);
+    endDateParsed.setDate(startDateParsed.getDate() - 7);
+    let userHydrationData = this.hydrationData.filter(userEntry => userEntry.userID === userID);
+    let userPastDates = userHydrationData.filter(function(activeDay) {
+      let day = new Date(activeDay.date);
+      if (day < startDateParsed && day >= endDateParsed) {
+        return true;
+      }
+    });
+    return userPastDates.map(day => day = day.date);
+  }
 }
 
 if (typeof module !== 'undefined') {

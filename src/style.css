@@ -29,36 +29,31 @@ nav {
 .sleep-container,
 .activity-container,
 .hydration-container {
-  display:flex;
-  flex-direction: column;
   align-items: center;
+  display: flex;
+  flex-direction: column;
   margin: 10px;
 }
 
-ul {
-  list-style-type: none;
+
+span {
+  color: white;
+  font-weight: 400;
 }
 
-li {
-  flex-grow: 1;
-  text-align: center;
-  display: inline-block;
-  font-size: 1.25em;
-  cursor: default;
-}
-
+/* Main portion of Site */
 main {
   background-color: #6C5B7B;
   display: flex;
   flex-direction: row;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
   height: 80vh;
   justify-content: space-around;
   overflow-x: hidden;
 }
 
-section{
-  display:flex;
+section {
+  display: flex;
   flex-direction: row;
   flex-grow: 2;
   flex-wrap: wrap;
@@ -66,11 +61,11 @@ section{
 }
 
 aside {
-  display:flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
+  justify-content: flex-start;
 }
 
 .card {
@@ -78,26 +73,37 @@ aside {
   border-radius: .2rem;
   border: #355C7D solid .1rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 #355C7D;
-  height:16rem;
-  padding:.5rem;
-  width: 24rem;
+  height: 16rem;
   margin: .5rem;
+  padding: .5rem;
+  width: 24rem;
+  font-size: 1.1rem;
+  background-color:#355C7D;
 }
 
 .chart {
   margin-top: 1rem;
 }
 
+.week {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 16rem;
+  justify-content: space-around;
+  width: 24rem;
+}
+
 .friends {
   display: flex;
+  height: 5rem;
   justify-content: space-between;
-  height:5rem;
-  padding: .6rem;
   margin: .5rem;
+  padding: .6rem;
 }
 
 .friends-container {
-  border-left: #F8B195 solid 5px;
+  border-left: #F67280 solid 5px;
 }
 
 .stats {
@@ -112,6 +118,10 @@ img {
   width: 4rem;
   height: 4rem;
 }
-.mountain{
+
+.mountain {
   background-image: url("../data/mountain-background.jpg");
+}
+.terrible{
+  overflow: scroll;
 }
