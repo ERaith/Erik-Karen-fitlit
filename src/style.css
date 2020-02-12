@@ -32,17 +32,20 @@ nav {
   display:flex;
   flex-direction: column;
   align-items: center;
+  margin: 10px;
 }
 .activity-container{
   display:flex;
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
+  margin: 10px;
 }
 .hydration-container{
   display:flex;
   flex-direction: column;
   align-items: center;
+  margin: 10px;
 }
 
 ul {
@@ -73,7 +76,7 @@ main {
   flex-wrap:wrap;
   height: 80vh;
   justify-content: space-around;
-  padding-top: 3rem;
+  /* padding-top: 3rem; */
   overflow-x: hidden;
 }
 
@@ -98,7 +101,7 @@ aside{
   border-radius: .2rem;
   border: #355C7D solid .1rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 #355C7D;
-  height:20rem;
+  height:17rem;
   padding:.5rem;
   width: 15rem;
   margin: .5rem;
@@ -107,7 +110,7 @@ aside{
   margin-top: 1rem;
 }
 .week{
-  width: 30rem;
+  width: 22rem;
   height: 20rem;
   display:flex;
   flex-direction:column;
@@ -122,3 +125,24 @@ aside{
   margin: .5rem;
 }
 
+.friends-container {
+  border-left: #F8B195 solid 5px;
+}
+ 
+.hydration {
+  /* width: 250px;
+  height: 250px; */
+}
+
+.stats {
+  font-size: 0.7em;
+}
+
+h3 {
+  text-decoration: underline;
+}
+
+img {
+  width: 4rem;
+  height: 4rem;
+}

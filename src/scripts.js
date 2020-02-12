@@ -47,19 +47,19 @@ function displayActivity() {
   let displayData = [{
       dataLabel: 'Minutes Active',
       chartID: 'minActiveChart',
-      chartColor: '#36C878',
+      chartColor: '#8A9A5B',
       dataType: 'minutesActive'
     },
     {
       dataLabel: 'Steps Taken',
       chartID: 'stepsChart',
-      chartColor: '#C8363E',
+      chartColor: '#A13D2D',
       dataType: 'numSteps'
     },
     {
       dataLabel: 'Stairs Climbed',
       chartID: 'stairsChart',
-      chartColor: '#C036C8',
+      chartColor: '#e4bd62',
       dataType: 'flightsOfStairs'
     }
   ]
@@ -124,7 +124,7 @@ function displayFriends() {
 function displayAverageSteps() {
   let averageStepsHTML = `
   <article class="averageScore">
-    <p>Your average steps compared with others:</p>
+    <p class="stats">Your average steps compared with others:</p>
     <p>${userRepo.calculateAverageStepGoal(user.dailyStepGoal)}%</p>
   </article>
   `
@@ -133,6 +133,7 @@ function displayAverageSteps() {
 
 function displayTodaysSleep() {
   let todaysSleepHTML = `
+  <img src="../assets/sleep.svg" alt="">
   <article class="card sleep">
   <h3>Today's Sleep:</h3>
   <p>Hours of Sleep: <span id='hoursSlept'>${sleep.getDailySleep(user.id, date)}</span></p>
@@ -142,7 +143,7 @@ function displayTodaysSleep() {
   <p>Quality of Sleep: <span id='averageSleepQuality'>${sleep.calcAvgSleepQualityTotalDays(user.id)}</span></p>
 </article>
   `
-  sleepContainer.insertAdjacentHTML('beforeend', todaysSleepHTML);
+  sleepContainer.insertAdjacentHTML('afterbegin', todaysSleepHTML);
 }
 
 // Charts
