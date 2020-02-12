@@ -17,7 +17,7 @@ class Activity {
     let currentUser = this.activityData.filter(data => data.userID === userID);
     return currentUser.find(minute => minute.date === date).numSteps;
   }
-  getPrevDaysData(userID, startDate,typeOfData) {
+  getPrevDaysData(userID, startDate, typeOfData) {
     let startDateParsed = new Date(startDate);
     let endDateParsed = new Date(startDate);
     endDateParsed.setDate(startDateParsed.getDate() - 7);
@@ -31,7 +31,7 @@ class Activity {
     return userActiveDaysData.map(data => data[typeOfData]);
   }
   calculateActiveAverage(userID, startDate) {
-    let prevMinutesActive = this.getPrevDaysData(userID, startDate,'minutesActive');
+    let prevMinutesActive = this.getPrevDaysData(userID, startDate, 'minutesActive');
     let totalActiveMinutes = prevMinutesActive.reduce((total, curVal) => {
       total += curVal;
       return total
@@ -88,39 +88,42 @@ class Activity {
     }, 0) / dailyActivity.length;
   }
 
-  findStreaks(userID){
-    let userActivityData = this.activityData.filter(data=>data.userID ===userID);
+  findStreaks(userID) {
+    let userActivityData = this.activityData.filter(data => data.userID === userID);
     let streaks = [];
-    let streak = userActivityData.reduce((acc,day)=>{
-      if(acc.prevNumSteps < day.numSteps){
+    let streak = userActivityData.reduce((acc, day) => {
+      if (acc.prevNumSteps < day.numSteps) {
         acc.curStreak.push(day)
-      }else if(acc.curStreak.length>=3) {
-        streaks.push({endDate:day.date,streakRun:acc.curStreak.length});
-        acc.curStreak =[day];
+      } else if (acc.curStreak.length >= 3) {
+        streaks.push({
+          endDate: day.date,
+          streakRun: acc.curStreak.length
+        });
+        acc.curStreak = [day];
       } else {
-        acc.curStreak =[day];
+        acc.curStreak = [day];
       }
       acc.prevNumSteps = day.numSteps;
       return acc;
-    },{
-      prevNumSteps:0,
-      curStreak:[]
+    }, {
+      prevNumSteps: 0,
+      curStreak: []
     })
     return streaks;
   }
-/*
-streaks [{
-endDate : ;
-days in Streak: ;
-}]
-*/
+  /*
+  streaks [{
+  endDate : ;
+  days in Streak: ;
+  }]
+  */
 
-  calculateProgressToMntTop(userID){
+  calculateProgressToMntTop(userID) {
     let currentUser = this.activityData.filter(data => data.userID === userID);
-    let total = currentUser.reduce((acc,day)=>{
+    let total = currentUser.reduce((acc, day) => {
       return acc += day.flightsOfStairs;
-    },0)
-    return (Math.round((total/1400)*100))/100;
+    }, 0)
+    return (Math.round((total / 1400) * 100)) / 100;
   }
 }
 

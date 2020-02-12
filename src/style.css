@@ -28,23 +28,25 @@ nav {
   background-color: #C06C84;
 }
 
-.sleep-container{
-  display:flex;
-  flex-direction: column;
+.sleep-container {
   align-items: center;
+  display: flex;
+  flex-direction: column;
   margin: 10px;
 }
-.activity-container{
-  display:flex;
+
+.activity-container {
+  align-items: center;
+  display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  align-items: center;
   margin: 10px;
 }
-.hydration-container{
-  display:flex;
-  flex-direction: column;
+
+.hydration-container {
   align-items: center;
+  display: flex;
+  flex-direction: column;
   margin: 10px;
 }
 
@@ -53,19 +55,19 @@ ul {
 }
 
 li {
-  flex-grow: 1;
-  text-align: center;
-  display: inline-block;
-  font-size: 1.25em;
   cursor: default;
+  display: inline-block;
+  flex-grow: 1;
+  font-size: 1.25em;
+  text-align: center;
 }
 
 .active {
   background-color: #6C5B7B;
 }
 
-span{
-  color:#6C5B7B
+span {
+  color: #6C5B7B
 }
 
 /* Main portion of Site */
@@ -73,57 +75,58 @@ main {
   background-color: #6C5B7B;
   display: flex;
   flex-direction: row;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
   height: 80vh;
   justify-content: space-around;
-  /* padding-top: 3rem; */
   overflow-x: hidden;
 }
 
-section{
-  display:flex;
+section {
+  display: flex;
   flex-direction: row;
   flex-grow: 2;
   flex-wrap: wrap;
   justify-content: space-around;
-
 }
 
-aside{
-  display:flex;
-  flex-direction: column;
+aside {
   align-items: center;
-  justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
+  justify-content: flex-start;
 }
-.card{
+
+.card {
   background: grey;
   border-radius: .2rem;
   border: #355C7D solid .1rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 #355C7D;
-  height:16rem;
-  padding:.5rem;
-  width: 24rem;
-  margin: .5rem;
-}
-.chart{
-  margin-top: 1rem;
-}
-.week{
-  width: 24rem;
   height: 16rem;
-  display:flex;
-  flex-direction:column;
-  justify-content: space-between;
-  align-items: center;
+  margin: .5rem;
+  padding: .5rem;
+  width: 24rem;
 }
 
-.friends{
+.chart {
+  margin-top: 1rem;
+}
+
+.week {
+  align-items: center;
   display: flex;
+  flex-direction: column;
+  height: 16rem;
   justify-content: space-between;
-  height:5rem;
-  padding: .6rem;
+  width: 24rem;
+}
+
+.friends {
+  display: flex;
+  height: 5rem;
+  justify-content: space-between;
   margin: .5rem;
+  padding: .6rem;
 }
 
 .friends-container {
@@ -147,6 +150,7 @@ img {
   width: 4rem;
   height: 4rem;
 }
-.mountain{
+
+.mountain {
   background-image: url("../data/mountain-background.jpg");
 }

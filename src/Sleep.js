@@ -25,7 +25,7 @@ class Sleep {
     return filteredSleepQuality.find(day => day.date === date).sleepQuality;
   }
 
-  getDailySleepDays(userID,startDate){
+  getDailySleepDays(userID, startDate) {
     let startDateParsed = new Date(startDate);
     let endDateParsed = new Date(startDate);
     endDateParsed.setDate(startDateParsed.getDate() - 7);
@@ -69,16 +69,16 @@ class Sleep {
   }
 
   findAllGreatSleepers(startDate) {
-    let uniqueUsers = [... new Set(this.sleepData.map(item => item.userID))];
-    let usersSleepPastWeek = uniqueUsers.reduce((acc,userID)=>{
-      let sleepData = this.getPrevDaysSleepHrs(userID,startDate);
-      if(sleepData.reduce((sum,element)=>{
-        return sum +=element;
-      },0)/sleepData.length>3){
+    let uniqueUsers = [...new Set(this.sleepData.map(item => item.userID))];
+    let usersSleepPastWeek = uniqueUsers.reduce((acc, userID) => {
+      let sleepData = this.getPrevDaysSleepHrs(userID, startDate);
+      if (sleepData.reduce((sum, element) => {
+          return sum += element;
+        }, 0) / sleepData.length > 3) {
         acc.push(userID);
       }
       return acc;
-    },[])
+    }, [])
     return usersSleepPastWeek;
   }
 

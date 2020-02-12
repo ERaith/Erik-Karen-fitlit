@@ -166,13 +166,13 @@ describe('Sleep', function() {
     });
 
 
-    it('should be able to find the longestSleeper',function(){
+    it('should be able to find the longestSleeper', function() {
       expect(sleep.findLongestSleepers("2019/06/15")).to.deep.equal([{
-              "userID": 4,
-              "date": "2019/06/15",
-              "hoursSlept": 5.4,
-              "sleepQuality": 3
-            }]);
+        "userID": 4,
+        "date": "2019/06/15",
+        "hoursSlept": 5.4,
+        "sleepQuality": 3
+      }]);
     })
   });
 

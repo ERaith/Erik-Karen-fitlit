@@ -29,15 +29,15 @@ function windowLoadHandler() {
   displayHydration();
 }
 
-function displaySleep(){
+function displaySleep() {
   displayLastWeekSleep();
   displayTodaysSleep();
 }
 
-function displayHydration(){
+function displayHydration() {
   let hydrationData = hydration.getPrevDaysHydration(user.id, date);
   let hydrationLabels = hydration.getPreviousDates(user.id, date);
-  displayLineChart(hydrationData,hydrationLabels,'OZ Drank','hydrationConsumedWeek','#355C7D');
+  displayLineChart(hydrationData, hydrationLabels, 'OZ Drank', 'hydrationConsumedWeek', '#355C7D');
   makeDonutChart();
 }
 
@@ -92,21 +92,24 @@ function displayUserInfo() {
 }
 
 function displayFriends() {
-  let userSteps = activity.getPrevDaysData(user.id, date,'numSteps').reduce((a, b) => {
+  let userSteps = activity.getPrevDaysData(user.id, date, 'numSteps').reduce((a, b) => {
     return a + b
   }, 0);
   let friendsSteps = user.friends.map(friendID => {
     newFriend = new User(userRepo.findUserByID(friendID))
-   let steps = activity.getPrevDaysData(friendID, date, 'numSteps').reduce((a, b) => {
-     return a + b
-   }, 0);
+    let steps = activity.getPrevDaysData(friendID, date, 'numSteps').reduce((a, b) => {
+      return a + b
+    }, 0);
     return friend = {
       name: newFriend.getFirstName(),
       steps: steps
     }
   })
 
-  friendsSteps.push({name: 'You!', steps: userSteps});
+  friendsSteps.push({
+    name: 'You!',
+    steps: userSteps
+  });
   friendsSteps.sort((a, b) => b.steps - a.steps);
 
   friendsSteps.forEach(function(person, index) {
@@ -155,51 +158,51 @@ function displayTodaysSleep() {
 
 Chart.defaults.global.defaultFontColor = 'white';
 
-function displayLineChart(data,labels,label,chartType,color) {
+function displayLineChart(data, labels, label, chartType, color) {
   var ctx = document.getElementById(chartType).getContext('2d');
   var myLineChart = new Chart(ctx, {
-			type: 'line',
-			data: {
-				labels: labels,
-				datasets: [{
-					label: label,
-					backgroundColor: color,
-					borderColor: '#AEBDCB',
-					data: data,
-					fill: true,
-				}]
-			},
-			options: {
-        legend:{
-          display:false
-        },
-				responsive: true,
-				tooltips: {
-					mode: 'index',
-					intersect: false,
-				},
-				hover: {
-					mode: 'nearest',
-					intersect: true
-				},
-				scales: {
-					xAxes: [{
-						display: true,
-						scaleLabel: {
-							display: false,
-							labelString: 'Date'
-						}
-					}],
-					yAxes: [{
-						display: true,
-						scaleLabel: {
-							display: true,
-							labelString: label
-						}
-					}]
-				}
-			}
-		});
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: label,
+        backgroundColor: color,
+        borderColor: '#AEBDCB',
+        data: data,
+        fill: true,
+      }]
+    },
+    options: {
+      legend: {
+        display: false
+      },
+      responsive: true,
+      tooltips: {
+        mode: 'index',
+        intersect: false,
+      },
+      hover: {
+        mode: 'nearest',
+        intersect: true
+      },
+      scales: {
+        xAxes: [{
+          display: true,
+          scaleLabel: {
+            display: false,
+            labelString: 'Date'
+          }
+        }],
+        yAxes: [{
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: label
+          }
+        }]
+      }
+    }
+  });
 }
 
 function displayLastWeekSleep() {
@@ -260,11 +263,12 @@ function displayLastWeekSleep() {
 function makeDonutChart() {
   var ctx = document.getElementById('hydrationConsumed').getContext('2d');
   var ounces = hydration.getFluidConsumedDay(user.id, date);
-  var myChart = new Chart(ctx, {type: 'doughnut',
+  var myChart = new Chart(ctx, {
+    type: 'doughnut',
     data: {
       datasets: [{
         data: [
-          ounces, 101- ounces
+          ounces, 101 - ounces
         ],
         backgroundColor: [
           '#355C7D',
@@ -278,8 +282,8 @@ function makeDonutChart() {
       ]
     },
     options: {
-      legend:{
-        display:false
+      legend: {
+        display: false
       },
       responsive: true,
       title: {
