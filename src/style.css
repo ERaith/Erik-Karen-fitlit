@@ -97,6 +97,7 @@ aside {
 .friends {
   display: flex;
   height: 5rem;
+  width: 12rem;
   justify-content: space-between;
   margin: .5rem;
   padding: .6rem;
