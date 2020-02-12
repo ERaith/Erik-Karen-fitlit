@@ -172,5 +172,10 @@ describe('Activity', function() {
   it('should show your highest climbing record', function() {
     expect(activity.findHighestClimbingRecord(1)).to.equal(78);
   });
+
+  it('should show how many 14ers you climbed', function() {
+    expect(activity.calculateProgressToMntTop(1)).to.equal(22);
+  });
+
     });
 });
