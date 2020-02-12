@@ -1,4 +1,3 @@
-/* General Layout */
 * {
   box-sizing: border-box;
   color: #F8B195;
@@ -6,7 +5,6 @@
 }
 
 body {
-  background-color: #355C7D;
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -28,22 +26,11 @@ nav {
   background-color: #C06C84;
 }
 
-.sleep-container {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-}
-
-.activity-container {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  margin: 10px;
-}
-
+.sleep-container,
+.activity-container,
 .hydration-container {
+  display:flex;
+  flex-direction: column;
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -134,11 +121,6 @@ aside {
 
 .friends-container {
   border-left: #F67280 solid 5px;
-}
-
-.hydration {
-  /* width: 250px;
-  height: 250px; */
 }
 
 .stats {
